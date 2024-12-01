@@ -3,7 +3,7 @@ import React from "react";
 import { Grid, InputAdornment } from "@mui/material";
 import { borderRadius, Box } from "@mui/system";
 
-import DoneAllRoundedIcon from '@mui/icons-material/DoneAllRounded';
+import DoneAllRoundedIcon from "@mui/icons-material/DoneAllRounded";
 import InputBoxComponent from "@/components/atoms/InputBoxComponent/page";
 import ButtonComponent from "@/components/atoms/Buttoncomponent/page";
 
@@ -29,7 +29,7 @@ const Verification = ({
           width: "100%",
           maxWidth: "600px",
           mb: 2,
-          mt:{xs:"60px"}
+          mt: { xs: "60px" },
         }}
       >
         <Grid container spacing={2} alignItems={"center"}>
@@ -45,10 +45,12 @@ const Verification = ({
               }}
               error={!!errors.phNo}
               errorText={errors.phNo ? errors.phNo : " "}
-              sx={{ backgroundColor: "white",borderRadius : "5px" }}
+              sx={{ backgroundColor: "white", borderRadius: "5px" }}
               InputProps={{
                 startAdornment: (
-                  <InputAdornment sx={{color : "inherit"}} position="start">+91 | </InputAdornment>
+                  <InputAdornment sx={{ color: "inherit" }} position="start">
+                    +91 |{" "}
+                  </InputAdornment>
                 ),
               }}
               disabled={isPhoneValid}
@@ -62,10 +64,10 @@ const Verification = ({
               onBtnClick={varifyPhoneNumber}
               sx={{
                 backgroundColor: isPhoneValid ? "green" : "bg-btn",
-                borderRadius : "5px",
+                borderRadius: "5px",
                 "&.Mui-disabled": {
                   backgroundColor: "#22BB33",
-                  color: "white",            
+                  color: "white",
                 },
               }}
               disabled={isPhoneValid}
@@ -97,7 +99,7 @@ const Verification = ({
               }}
               error={!!errors.email}
               errorText={errors.email ? errors.email : " "}
-              sx={{ backgroundColor: "white" ,borderRadius : "5px"}}
+              sx={{ backgroundColor: "white", borderRadius: "5px" }}
               disabled={isEmailValid}
             />
           </Grid>
@@ -111,7 +113,7 @@ const Verification = ({
                 backgroundColor: isEmailValid ? "green" : "bg-btn",
                 "&.Mui-disabled": {
                   backgroundColor: "#22BB33",
-                  color: "white",            
+                  color: "white",
                 },
               }}
               disabled={isEmailValid}

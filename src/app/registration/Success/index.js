@@ -2,10 +2,8 @@
 import React from "react";
 
 import { Grid, Typography } from "@mui/material";
-// import celebration from "../../../assets/icons/celebration.png";
-import celebration from "@/assets/icons/celebration.png"
-// import backBtnIcon from "../../../assets/icons/Vector.png";
-import backBtnIcon from "@/assets/icons/Vector.png"
+import celebration from "@/assets/icons/celebration.png";
+import backBtnIcon from "@/assets/icons/Vector.png";
 import ButtonComponent from "@/components/atoms/Buttoncomponent/page";
 import Image from "next/image";
 
@@ -14,7 +12,6 @@ const Success = ({ setActivePage }) => {
     <>
       <Grid
         item
-        // display={{ xs: "none", md: "block" }}
         sx={{
           mb: { xs: 0, md: 2 },
         }}
@@ -78,7 +75,7 @@ const Success = ({ setActivePage }) => {
           <Image
             src={backBtnIcon}
             alt="back button icon"
-            style={{ width: "20px",height : "auto" }}
+            style={{ width: "20px", height: "auto" }}
           />
         }
       />

@@ -1,19 +1,13 @@
 "use client";
 import { Grid, Typography } from "@mui/material";
 import React, { useState } from "react";
-// import regLeftBgPageOne from "../../../assets/pages/blondguy.png";
 import regLeftBgPageOne from "@/assets/pages/blondguy.png";
-// import regLeftBgPageTwo from '../../../assets/pages/younggirl.png'
 import regLeftBgPageTwo from "@/assets/pages/younggirl.png"
-// import regLeftBgPageThree from "../../../assets/pages/laptopguy.png"
-import regLeftBgPageThree from "@/assets/pages/laptopguy.png"
-// import regLeftBgPageFour from "../../../assets/pages/ladyimage.png"
-import regLeftBgPageFour from "@/assets/pages/ladyimage.png"
-// import mainBg from "../../../assets/pages/background.jpeg";
-import mainBg from "@/assets/pages/background.jpeg"
-// import DsedifyLogo from "../../../assets/logo/Asset 13@4x 1.png";
-import DsedifyLogo from '@/assets/logo/edifyLogo.png'
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import regLeftBgPageThree from "@/assets/pages/laptopguy.png";
+import regLeftBgPageFour from "@/assets/pages/ladyimage.png";
+import mainBg from "@/assets/pages/background.jpeg";
+import DsedifyLogo from "@/assets/logo/edifyLogo.png";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ButtonComponent from "@/components/atoms/Buttoncomponent/page";
 import Verification from "./Verification";
 import StudentInfo from "./StudentInfo";
@@ -330,8 +324,7 @@ const Registration = () => {
         sx={{
           backgroundImage: `url(${
             activePage === 1
-              ?
-               regLeftBgPageOne.src
+              ? regLeftBgPageOne.src
               : activePage === 2
               ? regLeftBgPageTwo.src
               : activePage === 3
@@ -339,7 +332,7 @@ const Registration = () => {
               : regLeftBgPageFour.src
           })`,
         }}
-></Grid>
+      ></Grid>
 
       <Grid
         container
@@ -370,14 +363,16 @@ const Registration = () => {
             padding: { xs: 2, sm: 3, md: 2 },
           }}
         >
-
-          <Image src={DsedifyLogo} alt="DS-Edify-Log" className="edify-logo"
-          style={{
+          <Image
+            src={DsedifyLogo}
+            alt="DS-Edify-Log"
+            className="edify-logo"
+            style={{
               maxWidth: "250px",
               width: "100%",
               height: "auto",
-            }} 
-            />
+            }}
+          />
           {activePage === 4 ? null : (
             <>
               <Typography
@@ -462,18 +457,17 @@ const Registration = () => {
                 }}
                 sx={{
                   background: "none",
-                  color:"#203763",
+                  color: "#203763",
                   fontSize: 15,
                   ":hover": {
                     backgroundColor: "inherit",
                     color: "#203763",
                     height: 45,
-                    
                   },
                 }}
               />
               <ButtonComponent
-                label={(activePage ===2 ? "Continue" : "submit")}
+                label={activePage === 2 ? "Continue" : "submit"}
                 borderRadius="30px"
                 onBtnClick={() =>
                   activePage === 2 ? validateStuInfo() : validateDegreeFields()

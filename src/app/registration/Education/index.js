@@ -1,10 +1,6 @@
 import React from "react";
-import {
-  Grid,
-  MenuItem,
-
-} from "@mui/material";
-import AddBtnIcon from "@/assets/icons/Frame.png"
+import { Grid, MenuItem } from "@mui/material";
+import AddBtnIcon from "@/assets/icons/Frame.png";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ButtonComponent from "@/components/atoms/Buttoncomponent/page";
 import CheckBoxComponent from "@/components/atoms/CheckBoxComponent/page";

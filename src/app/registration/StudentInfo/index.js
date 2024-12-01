@@ -2,7 +2,7 @@
 import { Grid, Typography } from "@mui/material";
 import React from "react";
 import { useDropzone } from "react-dropzone";
-import dragDropBg from "@/assets/icons/dragDropBg.png"
+import dragDropBg from "@/assets/icons/dragDropBg.png";
 import dragLogo from "@/assets/icons/Group 2.png";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import { Box } from "@mui/system";
