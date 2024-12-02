@@ -1,5 +1,14 @@
+@import "./variable.scss";
+
 .body-container {
-  // padding: 0 40px;
+  padding: 0;
+}
+
+@media (min-width: 1024px) {
+  .body-container {
+    padding-left: 150px;
+    padding-right: 150px;
+  }
 }
 
 .main-bg-container {
@@ -8,7 +17,7 @@
   background-position: center;
 }
 
-.left-bg-container{
+.left-bg-container {
   background-size: cover;
   background-position: center;
 }
@@ -17,64 +26,147 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
-.step-item-text {
+@media (min-width: 576px) {
+  .logo-container {
+    padding: 24px;
+  }
+}
+
+@media (min-width: 768px) {
+  .logo-container {
+    padding: 16px;
+  }
+}
+
+.steps-text-container {
   position: absolute;
   display: flex;
   justify-content: end;
   padding: 10px;
 }
 
-.step-text {
-  color: #203763;
+.steps-text {
+  color: $primary_color;
+  font-size: 12px;
+}
+
+@media (min-width: 576px) {
+  .steps-text {
+    font-size: 14px;
+  }
+}
+@media (min-width: 768px) {
+  .steps-text {
+    font-size: 16px;
+  }
+}
+
+.steps-span-text {
+  color: $orange;
 }
 
 .main-title {
-  color: #203763;
+  color: $primary_color;
 }
+
+@media (min-width: 320px) {
+  .main-title {
+    font-size: 20px;
+  }
+}
+
+@media (min-width: 768px) {
+  .main-title {
+    font-size: 32px;
+  }
+}
+
 .sub-title {
-  color: #203763;
+  color: $primary_color;
 }
 
-// .edify-logo{
-//   max-width:"250px" !important;
-//   width: "100%" !important;
-//   height: auto  !important;
-// }
-
-.common-btn{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+@media (min-width: 320px) {
+  .sub-title {
+    font-size: 16px;
+  }
 }
 
-.dropped-image-item{
-  position: relative;
+@media (min-width: 768px) {
+  .sub-title {
+    font-size: 18px;
+  }
+}
+
+.edify-logo {
+  max-width: 270px;
   width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items:last baseline;
+  height: auto;
 }
 
-.scroll-container::-webkit-scrollbar{
+@media (max-width: 767px) {
+  .edify-logo {
+    max-width: 200px;
+  }
+}
+
+.common-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.back-btn-component {
+  background: none;
+  color: $primary_color;
+  font-size: 15px;
+}
+.back-btn-component:hover {
+  background-color: inherit;
+  color: $primary_color;
+}
+
+.continue-btn-component {
+  background: $primary_color;
+}
+
+.continue-btn-component:hover {
+  background: $primary_color;
+  color: $white_1;
+}
+
+@media (min-width: 320px) {
+  .continue-btn-component {
+    font-size: 15px;
+    height: 40px;
+  }
+}
+
+@media (min-width: 768px) {
+  .continue-btn-component {
+    font-size: 18px;
+  }
+}
+
+.scroll-bar-container::-webkit-scrollbar {
   width: 2px;
 }
 
-.scroll-container::-webkit-scrollbar-track{
-  background-color: white;
+.scroll-bar-container::-webkit-scrollbar-track {
+  background-color: $white_1;
   border-radius: 15px;
 }
 
-.scroll-container::-webkit-scrollbar-thumb{
-  background-color: 	#D3D3D3;
+.scroll-bar-container::-webkit-scrollbar-thumb {
+  background-color: $gray_1;
   border-radius: 15px;
 }
 
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus, 
-input:-webkit-autofill:active{
-   -webkit-box-shadow: 0 0 0 30px white  inset !important;
-//    -webkit-text-fill-color: rgba(0, 0, 0, 0.6) !important;
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px $white_1 inset !important;
 }

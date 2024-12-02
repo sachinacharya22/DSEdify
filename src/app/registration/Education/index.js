@@ -67,75 +67,43 @@ const Education = ({
     <>
       <Grid
         item
-        display={"flex"}
-        justifyContent={"end"}
-        alignItems={"center"}
-        sx={{ width: "90%" }}
+        className="d-flex justify-content-end align-items-center w-90p"
       >
         <ButtonComponent
+        muiProps="add-degree-btn fw-700 fs-16"
           label="Add Degree"
           showIcon={true}
           icon={
             <Image
+              className="add-degree-logo"
               src={AddBtnIcon}
               alt="add btn icon"
-              style={{ width: 25, height: "auto" }}
             />
           }
           onBtnClick={handleAddDegree}
-          sx={{
-            color: "#203763",
-            background: "none",
-            fontSize: 15,
-            fontWeight: 700,
-            ":hover": {
-              backgroundColor: "inherit",
-              color: "inherit",
-            },
-          }}
         />
       </Grid>
 
       <Grid
         container
-        className="scroll-container"
+        className="scroll-bar-container d-flex justify-content-center align-items-center"
         spacing={2}
-        display={"flex"}
-        justifyContent={"center"}
-        alignItems={"baseline"}
-        sx={{
-          maxWidth: "90%",
-          margin: "0 auto",
-          overflowY: "auto",
-          padding: "8px",
-        }}
       >
         {degrees.map((degree, index) => (
           <>
             {degrees.length > 1 && (
               <Grid
                 item
-                display={"flex"}
-                justifyContent={"end"}
-                borderBottom={"2px dashed #203763"}
-                sx={{ width: "100%" }}
+                className="degrees-container d-flex justify-content-end w-100p"
+                // borderBottom={"2px dashed #203763"}
               >
                 <ButtonComponent
+                  muiProps="remove-degree-btn fs-14 fw-700"
                   label="Remove Degree"
                   showIcon={true}
-                  icon={<DeleteIcon style={{ color: "red" }} />}
+                  icon={<DeleteIcon className="icon-red" />}
                   onBtnClick={() => {
                     handleRemoveDegree(degree.id);
-                  }}
-                  sx={{
-                    color: "#203763",
-                    background: "none",
-                    fontSize: 15,
-                    fontWeight: 700,
-                    ":hover": {
-                      backgroundColor: "inherit",
-                      color: "inherit",
-                    },
                   }}
                 />
               </Grid>
@@ -230,11 +198,7 @@ const Education = ({
 
       <Grid
         item
-        width={"90%"}
-        display={"flex"}
-        justifyContent={"start"}
-        flexDirection={"column"}
-        paddingLeft={3}
+        className="w-90p d-flex justify-content-start ps-4 flex-column"
       >
         <CheckBoxComponent
           name="earlierBacklogs"

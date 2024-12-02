@@ -21,17 +21,9 @@ const Verification = ({
   const handleNavigate = () => {
     setActivePage(activePage + 1);
   };
-
   return (
     <>
-      <Box
-        sx={{
-          width: "100%",
-          maxWidth: "600px",
-          mb: 2,
-          mt: { xs: "60px" },
-        }}
-      >
+      <Grid container className="number-container" mt={{ xs: "60px" }}>
         <Grid container spacing={2} alignItems={"center"}>
           <Grid item xs={12} sm={8} md={8}>
             <InputBoxComponent
@@ -48,7 +40,7 @@ const Verification = ({
               sx={{ backgroundColor: "white", borderRadius: "5px" }}
               InputProps={{
                 startAdornment: (
-                  <InputAdornment sx={{ color: "inherit" }} position="start">
+                  <InputAdornment className="number-adornment" position="start">
                     +91 |{" "}
                   </InputAdornment>
                 ),
@@ -77,15 +69,9 @@ const Verification = ({
             />
           </Grid>
         </Grid>
-      </Box>
+      </Grid>
 
-      <Box
-        sx={{
-          width: "100%",
-          maxWidth: "600px",
-          mb: 4,
-        }}
-      >
+      <Grid container className="email-container" mt={{ xs: "60px" }}>
         <Grid container spacing={2} alignItems="center">
           <Grid item xs={12} sm={8} md={8}>
             <InputBoxComponent
@@ -123,20 +109,12 @@ const Verification = ({
             />
           </Grid>
         </Grid>
-      </Box>
+      </Grid>
       <ButtonComponent
+        muiProps="get-started-btn"
         label="Get started"
         borderRadius="30px"
         onBtnClick={handleNavigate}
-        sx={{
-          background: "#203763",
-          width: 200,
-          height: 50,
-          ":hover": {
-            backgroundColor: "#203763",
-            color: "white",
-          },
-        }}
         disabled={!(isPhoneValid && isEmailValid)}
       />
     </>

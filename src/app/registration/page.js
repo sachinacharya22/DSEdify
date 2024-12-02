@@ -2,7 +2,7 @@
 import { Grid, Typography } from "@mui/material";
 import React, { useState } from "react";
 import regLeftBgPageOne from "@/assets/pages/blondguy.png";
-import regLeftBgPageTwo from "@/assets/pages/younggirl.png"
+import regLeftBgPageTwo from "@/assets/pages/younggirl.png";
 import regLeftBgPageThree from "@/assets/pages/laptopguy.png";
 import regLeftBgPageFour from "@/assets/pages/ladyimage.png";
 import mainBg from "@/assets/pages/background.jpeg";
@@ -53,6 +53,11 @@ const Registration = () => {
     pucDiploma: "",
   });
 
+  const [draggedFiles, setDraggedFiles] = useState([]);
+  const [droppedImage, setDroppedImage] = useState(null);
+
+  const [isChecked, setIsChecked] = useState(false);
+
   const [errors, setErrors] = useState({
     phNo: "",
     email: "",
@@ -81,11 +86,6 @@ const Registration = () => {
   const [isPhoneValid, setIsPhoneValid] = useState(false);
   const [isEmailValid, setIsEmailValid] = useState(false);
 
-  const [isChecked, setIsChecked] = useState(false);
-
-  const [draggedFiles, setDraggedFiles] = useState([]);
-  const [droppedImage, setDroppedImage] = useState(null);
-
   const [degrees, setDegrees] = useState([
     {
       id: Date.now(),
@@ -96,7 +96,6 @@ const Registration = () => {
     },
   ]);
 
-  console.log("degrees", degrees);
 
   const [backlogs, setBacklogs] = useState({
     earlierBacklogs: false,
@@ -303,7 +302,6 @@ const Registration = () => {
 
   const handleCheckBoxTwo = (event) => {
     const isChecked = event.target.checked;
-    // console.log("isChecked",isChecked)
     setBacklogs((prevData) => ({
       ...prevData,
       presentBacklogs: isChecked,
@@ -311,15 +309,10 @@ const Registration = () => {
   };
 
   return (
-    <Grid
-      container
-      className="body-container"
-      sx={{ padding: { md: "0 150px" } }}
-    >
+    <Grid container className="body-container">
       <Grid
         container
-        className="left-bg-container vh-100 w-100p"
-        display={{ xs: "none", md: "block" }}
+        className="left-bg-container vh-100 w-100p d-none d-md-none d-lg-block"
         md={4}
         sx={{
           backgroundImage: `url(${
@@ -336,64 +329,26 @@ const Registration = () => {
 
       <Grid
         container
-        className="main-bg-container vh-100"
-        md={8}
-        xs={12}
+        className="main-bg-container vh-100 col-md-12 col-sm-12 col-xs-12 col-lg-8"
         sx={{ backgroundImage: `url(${mainBg.src})` }}
       >
         {activePage === 4 ? null : (
-          <Grid
-            item
-            className="step-item-text w-100p"
-            sx={{
-              fontSize: { xs: "12px", sm: "14px", md: "16px" },
-            }}
-          >
-            <Typography className="step-text fw-700">
-              Step <span style={{ color: "#F47F20" }}>{activePage}</span>/3
+          <Grid item className="steps-text-container w-100p">
+            <Typography className="steps-text fw-700">
+              Step <span className="steps-span-text">{activePage}</span>/3
             </Typography>
           </Grid>
         )}
 
-        <Grid
-          item
-          className="logo-container vh-100 w-100p"
-          direction="column"
-          sx={{
-            padding: { xs: 2, sm: 3, md: 2 },
-          }}
-        >
-          <Image
-            src={DsedifyLogo}
-            alt="DS-Edify-Log"
-            className="edify-logo"
-            style={{
-              maxWidth: "250px",
-              width: "100%",
-              height: "auto",
-            }}
-          />
+        <Grid item className="logo-container vh-100 w-100p">
+          <Image src={DsedifyLogo} alt="DS-Edify-Log" className="edify-logo" />
           {activePage === 4 ? null : (
             <>
-              <Typography
-                className="main-title fw-700"
-                variant="h4"
-                sx={{
-                  fontSize: { xs: "20px", sm: "25px", md: "32px" },
-                  mt: 1,
-                }}
-              >
+              <Typography className="main-title fw-700 mt-1" variant="h4">
                 Student Registration Form
               </Typography>
 
-              <Typography
-                className="sub-title"
-                variant="h6"
-                sx={{
-                  mb: 1,
-                  fontSize: { xs: "14px", sm: "16px", md: "18px" },
-                }}
-              >
+              <Typography className="sub-title mb-1" variant="h6">
                 Drive Code: ABC123
               </Typography>
             </>
@@ -438,7 +393,6 @@ const Registration = () => {
               handleCheckBoxTwo={handleCheckBoxTwo}
               errors={errors}
               validateFields={validateFields}
-              // validateDegreeFields={validateDegreeFields}
             />
           )}
 
@@ -449,39 +403,21 @@ const Registration = () => {
           {activePage === 1 || activePage === 4 ? null : (
             <Grid className="common-btn" item sx={{ width: "87%", mt: 7 }}>
               <ButtonComponent
+                muiProps="back-btn-component border-0"
                 label="Back"
                 showIcon={true}
                 icon={<ArrowBackIosIcon />}
                 onBtnClick={() => {
                   setActivePage(activePage - 1);
                 }}
-                sx={{
-                  background: "none",
-                  color: "#203763",
-                  fontSize: 15,
-                  ":hover": {
-                    backgroundColor: "inherit",
-                    color: "#203763",
-                    height: 45,
-                  },
-                }}
               />
               <ButtonComponent
+                muiProps="continue-btn-component"
                 label={activePage === 2 ? "Continue" : "submit"}
                 borderRadius="30px"
                 onBtnClick={() =>
                   activePage === 2 ? validateStuInfo() : validateDegreeFields()
                 }
-                sx={{
-                  background: "#203763",
-                  width: { xs: "50%", sm: 150 },
-                  height: 45,
-                  fontSize: { xs: 18, sm: 18 },
-                  ":hover": {
-                    backgroundColor: "#203763",
-                    color: "white",
-                  },
-                }}
               />
             </Grid>
           )}

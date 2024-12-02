@@ -1,0 +1,43 @@
+@import "./variable.scss";
+
+.add-degree-logo {
+  width: 25px;
+  height: auto;
+  color: $primary_color;
+  background: none;
+}
+
+.add-degree-btn {
+  color: $primary_color;
+  background: none;
+}
+
+.add-degree-btn:hover {
+  background: inherit;
+  color: inherit;
+}
+
+.scroll-bar-container {
+  max-width: 90%;
+  margin: 0 auto;
+  overflow-y: auto;
+  padding: 8px;
+}
+
+.degrees-container {
+  border-bottom: 2px dashed $primary_color;
+}
+
+.remove-degree-btn {
+  background: none;
+  color: $primary_color;
+}
+
+.remove-degree-btn:hover {
+  background: inherit;
+  color: inherit;
+}
+
+.icon-red {
+  color: red;
+}

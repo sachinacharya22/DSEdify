@@ -1,0 +1,27 @@
+@import "./variable.scss";
+
+.number-container{
+    width: 90%;
+    max-width: 600px;
+}
+
+.email-container{
+    width: 90%;
+    max-width: 600px;
+    margin-bottom: 20px;
+}
+
+.number-adornment{
+    color: inherit;
+}
+
+.get-started-btn{
+    background: $primary_color;
+    width: 200px;
+    height: 50px;
+}
+
+.get-started-btn:hover{
+    background: $primary_color;
+    color: $white_1;
+}

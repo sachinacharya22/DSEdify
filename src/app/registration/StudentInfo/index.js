@@ -33,99 +33,52 @@ const StudentInfo = ({
   const deleteDroppedImage = () => {
     setDroppedImage(null);
   };
-  console.log("image", dragDropBg);
 
   return (
     <>
       <Grid
         container
+        className="drag-drop-bg"
         {...(droppedImage ? {} : getRootProps())}
         sx={{
-          position: "relative",
           backgroundImage: `url(${droppedImage ? null : dragDropBg.src})`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "contain",
-          backgroundPosition: "center",
-          width: "30%",
-          height: { md: "100px", xs: "150px", sm: "150px" },
-          borderRadius: "50%",
-          cursor: "pointer",
         }}
       >
         <input {...getInputProps()} />
 
         {droppedImage && (
-          <Grid item className="dropped-image-item">
+          <Grid item className="drop-image-container">
             <Box
+              className="dropped-image"
               component="img"
               src={droppedImage}
               alt="dropped-image"
-              sx={{
-                width: "100px",
-                height: "100px",
-                borderRadius: "50%",
-                objectFit: "cover",
-                border: "2px solid #D3D3D3",
-              }}
             />
             <RemoveCircleIcon
-              sx={{ position: "absolute", marginLeft: 8 }}
               className="delete-icon"
-              style={{
-                width: "3.7vh",
-                height: "auto",
-                color: "red",
-              }}
               onClick={deleteDroppedImage}
             />
           </Grid>
         )}
 
-        <Grid
-          item
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-          }}
-        >
+        <Grid item className="drag-drop-logo-container">
           {droppedImage ? null : (
-            <Image
-              className="drag-logo"
-              id="drag-drop-logo"
-              src={dragLogo}
-              alt="drag logo"
-              style={{
-                width: "11.0vh",
-                height: "auto",
-              }}
-            />
+            <Image className="drag-drop-logo" src={dragLogo} alt="drag logo" />
           )}
         </Grid>
       </Grid>
 
       {errors.image && (
-        <Typography
-          color="error"
-          variant="body2"
-          sx={{ mt: 1, fontWeight: 600 }}
-        >
+        <Typography className="fw-600 mt-1" color="error" variant="body2">
           {errors.image}
         </Typography>
       )}
 
       <Grid
         container
-        className="scroll-container"
+        className="scroll-bar-container"
         spacing={2}
         alignItems="baseline"
-        sx={{
-          width: "90%",
-          margin: "0 auto",
-          overflowY: "auto",
-          padding: "8px",
-        }}
       >
         <Grid item md={6} xs={12}>
           <InputBoxComponent
