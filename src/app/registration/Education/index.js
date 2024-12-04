@@ -2,43 +2,41 @@ import React from "react";
 import { Grid, MenuItem } from "@mui/material";
 import AddBtnIcon from "@/assets/icons/Frame.png";
 import DeleteIcon from "@mui/icons-material/Delete";
-import ButtonComponent from "@/components/atoms/Buttoncomponent/page";
-import CheckBoxComponent from "@/components/atoms/CheckBoxComponent/page";
-import InputBoxComponent from "@/components/atoms/InputBoxComponent/page";
+import ButtonComponent from "@/components/atoms/Buttoncomponent";
+import CheckBoxComponent from "@/components/atoms/CheckBoxComponent";
+import InputBoxComponent from "@/components/atoms/InputBoxComponent";
 import Image from "next/image";
+import en from "../../../../messages/en.json";
+import {
+  specializationOptions,
+  branches,
+  percentage,
+} from "@/constants/options";
+
+const {
+  _EducationForm_: {
+    _DegreeSpecializationTextLabel_,
+    _BranchTextLabel_,
+    _GradingSystemTextLabel_,
+    _DegreePercentageTextlabel_,
+    _EarliarBacklogsLabel_,
+    _PrsentBacklogsLabel_,
+    _AddDegreeBtnLabel_,
+    _RemoveDegreeBtnLabel_,
+  },
+} = en;
 
 const Education = ({
-  degrees,
-  setDegrees,
-  backlogs,
-  handleValueChange,
-  handleCheckBoxOne,
-  handleCheckBoxTwo,
-  errors,
-  validateFields,
+  degrees = {},
+  setDegrees = () => {},
+  backlogs = {},
+  handleValueChange = () => {},
+  handleCheckBoxOne = () => {},
+  handleCheckBoxTwo = () => {},
+  errors = {},
+  setErrors = () => {},
+  validateFields = () => {},
 }) => {
-  const specializationOptions = [
-    {
-      value: "ai_ml",
-      label: "Artificial Intelligence & Machine Learning (AI/ML)",
-    },
-    { value: "software_engineering", label: "Software Engineering" },
-    { value: "automotive_engineering", label: "Automotive Engineering" },
-    { value: "iot", label: "Internet of Things (IoT)" },
-    { value: "web_development", label: "Web Development and Design" },
-    { value: "environmental_technology", label: "Environmental Technology" },
-    { value: "hrm", label: "Human Resource Management (HRM)" },
-  ];
-
-  const branch = [
-    { value: "bba_mba", label: "Business Administration (BBA/MBA)" },
-    { value: "chemical_engineering", label: "Chemical Engineering" },
-    { value: "it", label: "Information Technology" },
-    { value: "ece", label: "Electronics and Communication Engineering (ECE)" },
-    { value: "me", label: "Mechanical Engineering (ME)" },
-    { value: "cse", label: "Computer Science and Engineering (CSE)" },
-  ];
-
   const handleAddDegree = () => {
     if (!validateFields()) {
       return;
@@ -50,6 +48,7 @@ const Education = ({
         branch: "",
         gradingSystem: "",
         degreePercentage: "",
+        errors: {},
       },
       ...degrees,
     ]);
@@ -60,6 +59,14 @@ const Education = ({
       setDegrees((prevDegree) =>
         prevDegree.filter((degree) => degree.id !== id)
       );
+      setErrors(
+        {
+          degreeSpecialization: "",
+          branch: "",
+          gradingSystem: "",
+          degreePercentage: "",
+        }
+      )
     }
   };
 
@@ -70,12 +77,12 @@ const Education = ({
         className="d-flex justify-content-end align-items-center w-90p"
       >
         <ButtonComponent
-        muiProps="add-degree-btn fw-700 fs-16"
-          label="Add Degree"
+          muiProps="education-form-add-degree-btn fw-700 fs-16"
+          label={_AddDegreeBtnLabel_}
           showIcon={true}
           icon={
             <Image
-              className="add-degree-logo"
+              className="education-form-add-degree-icon"
               src={AddBtnIcon}
               alt="add btn icon"
             />
@@ -86,114 +93,123 @@ const Education = ({
 
       <Grid
         container
-        className="scroll-bar-container d-flex justify-content-center align-items-center"
+        className="scroll-bar-container d-flex justify-content-center align-items-baseline"
         spacing={2}
       >
-        {degrees.map((degree, index) => (
-          <>
-            {degrees.length > 1 && (
-              <Grid
-                item
-                className="degrees-container d-flex justify-content-end w-100p"
-                // borderBottom={"2px dashed #203763"}
-              >
-                <ButtonComponent
-                  muiProps="remove-degree-btn fs-14 fw-700"
-                  label="Remove Degree"
-                  showIcon={true}
-                  icon={<DeleteIcon className="icon-red" />}
-                  onBtnClick={() => {
-                    handleRemoveDegree(degree.id);
-                  }}
+        {degrees.map(
+          (
+            {
+              id,
+              degreeSpecialization,
+              branch,
+              gradingSystem,
+              degreePercentage,
+            },
+            index
+          ) => (
+            <>
+              {degrees.length > 1 && (
+                <Grid
+                  item
+                  className="degrees-container d-flex justify-content-end w-100p"
+                >
+                  <ButtonComponent
+                    muiProps="education-form-remove-degree-btn fs-14 fw-700"
+                    label={_RemoveDegreeBtnLabel_}
+                    showIcon={true}
+                    icon={<DeleteIcon className="icon-red" />}
+                    onBtnClick={() => {
+                      handleRemoveDegree(id);
+                    }}
+                  />
+                </Grid>
+              )}
+              <Grid item key={index} md={6} xs={12}>
+                <InputBoxComponent
+                  className="education-form-input-box"
+                  textLabel={_DegreeSpecializationTextLabel_}
+                  required={true}
+                  type="text"
+                  name="degreeSpecialization"
+                  value={degreeSpecialization}
+                  onChange={(event) => handleValueChange(index, event)}
+                  errors={!!errors[index]?.degreeSpecialization}
+                  errorText={errors[index]?.degreeSpecialization}
+                  select
+                >
+                  {specializationOptions.map((option) => (
+                    <MenuItem
+                      key={option.value}
+                      className="menu-item"
+                      value={option.value}
+                    >
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </InputBoxComponent>
+              </Grid>
+
+              <Grid item md={6} xs={12}>
+                <InputBoxComponent
+                  className="education-form-input-box"
+                  textLabel={_BranchTextLabel_}
+                  required={true}
+                  type="text"
+                  value={branch}
+                  name="branch"
+                  onChange={(event) => handleValueChange(index, event)}
+                  errors={!!errors[index]?.branch}
+                  errorText={errors[index]?.branch}
+                  select
+                >
+                  {branches.map((option) => (
+                    <MenuItem
+                      key={option.value}
+                      className="menu-item"
+                      value={option.value}
+                    >
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </InputBoxComponent>
+              </Grid>
+
+              <Grid item md={6} xs={12} mt={0}>
+                <InputBoxComponent
+                  className="education-form-input-box"
+                  textLabel={_GradingSystemTextLabel_}
+                  required={true}
+                  type="text"
+                  value={gradingSystem}
+                  name="gradingSystem"
+                  onChange={(event) => handleValueChange(index, event)}
+                  errors={!!errors[index]?.gradingSystem}
+                  errorText={errors[index]?.gradingSystem}
+                  select
+                >
+                  {percentage.map((percent) => (
+                    <MenuItem key={percent.value} value={percent.value}>
+                      {percent.label}
+                    </MenuItem>
+                  ))}
+                </InputBoxComponent>
+              </Grid>
+              <Grid item md={6} xs={12}>
+                <InputBoxComponent
+                  className="education-form-input-box"
+                  textLabel={_DegreePercentageTextlabel_}
+                  required={true}
+                  type="text"
+                  value={degreePercentage}
+                  name="degreePercentage"
+                  onChange={(event) => handleValueChange(index, event)}
+                  errors={!!errors[index]?.degreePercentage}
+                  errorText={errors[index]?.degreePercentage}
                 />
               </Grid>
-            )}
-            <Grid item key={index} md={6} xs={12}>
-              <InputBoxComponent
-                textLabel="Degree Specialization"
-                required={true}
-                type="text"
-                sx={{
-                  width: "100%",
-                  backgroundColor: "white",
-                  borderRadius: "5px",
-                }}
-                name="degreeSpecialization"
-                value={degree.degreeSpecialization}
-                onChange={(event) => handleValueChange(index, event)}
-                errors={!!errors[index]?.degreeSpecialization}
-                errorText={errors[index]?.degreeSpecialization}
-                select
-              >
-                {specializationOptions.map((option) => (
-                  <MenuItem
-                    key={option.value}
-                    className="menu-item"
-                    value={option.value}
-                  >
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </InputBoxComponent>
-            </Grid>
-
-            <Grid item md={6} xs={12}>
-              <InputBoxComponent
-                textLabel="Branch"
-                required={true}
-                type="text"
-                sx={{ width: "100%", backgroundColor: "white" }}
-                value={degree.branch}
-                name="branch"
-                onChange={(event) => handleValueChange(index, event)}
-                errors={!!errors[index]?.branch}
-                errorText={errors[index]?.branch}
-                select
-              >
-                {branch.map((option) => (
-                  <MenuItem
-                    key={option.value}
-                    className="menu-item"
-                    value={option.value}
-                  >
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </InputBoxComponent>
-            </Grid>
-
-            <Grid item md={6} xs={12} mt={0}>
-              <InputBoxComponent
-                textLabel="Grading System"
-                required={true}
-                type="text"
-                sx={{ width: "100%", backgroundColor: "white" }}
-                value={degree.gradingSystem}
-                name="gradingSystem"
-                onChange={(event) => handleValueChange(index, event)}
-                errors={!!errors[index]?.gradingSystem}
-                errorText={errors[index]?.gradingSystem}
-                select
-              >
-                <MenuItem value="percentage">Percentage</MenuItem>
-                <MenuItem value="cgpa">CGPA</MenuItem>
-              </InputBoxComponent>
-            </Grid>
-            <Grid item md={6} xs={12}>
-              <InputBoxComponent
-                textLabel="Degree Percentage"
-                required={true}
-                type="text"
-                sx={{ width: "100%", backgroundColor: "white" }}
-                value={degree.degreePercentage}
-                name="degreePercentage"
-                onChange={(event) => handleValueChange(index, event)}
-                errors={!!errors[index]?.degreePercentage}
-                errorText={errors[index]?.degreePercentage}
-              />
-            </Grid>
-          </>
-        ))}
+            </>
+          )
+        )}
       </Grid>
 
       <Grid
@@ -202,13 +218,13 @@ const Education = ({
       >
         <CheckBoxComponent
           name="earlierBacklogs"
-          label="Any Earlier Backlogs"
+          label={_EarliarBacklogsLabel_}
           checked={backlogs.earlierBacklogs}
           onChange={handleCheckBoxOne}
         />
         <CheckBoxComponent
           name="presentBacklogs"
-          label="Any Present Backlogs"
+          label={_PrsentBacklogsLabel_}
           checked={backlogs.presentBacklogs}
           onChange={handleCheckBoxTwo}
         />

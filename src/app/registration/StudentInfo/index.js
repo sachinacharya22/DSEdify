@@ -6,23 +6,51 @@ import dragDropBg from "@/assets/icons/dragDropBg.png";
 import dragLogo from "@/assets/icons/Group 2.png";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import { Box } from "@mui/system";
-import InputBoxComponent from "@/components/atoms/InputBoxComponent/page";
-import CheckBoxComponent from "@/components/atoms/CheckBoxComponent/page";
+import InputBoxComponent from "@/components/atoms/InputBoxComponent";
+import CheckBoxComponent from "@/components/atoms/CheckBoxComponent";
 import Image from "next/image";
+import en from "../../../../messages/en.json";
+
+const {
+  _StudentInfoForm_: {
+    _FullNameTextLabel_,
+    _WhatsappNoTextLabel_,
+    _UsnTextLabel_,
+    _PermanentCityTextLabel_,
+    _TenthPercentageTextLabel_,
+    _PucDiplomaPercentage_,
+  },
+} = en;
 
 const StudentInfo = ({
-  errors,
-  stuRegData,
-  handleChange,
-  handleCheckBoxChange,
-  isChecked,
-  setDraggedFiles,
-  setDroppedImage,
-  droppedImage,
+  errors = {},
+  stuRegData = {},
+  handleChange = () => {},
+  handleCheckBoxChange = () => {},
+  isChecked = false,
+  setDroppedImage = () => {},
+  droppedImage = null,
 }) => {
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+  const {
+    phNo,
+    fullName,
+    whatsappNo,
+    usn,
+    permanentCity,
+    tenthPercentage,
+    pucDiploma,
+  } = stuRegData;
+  const {
+    fullName: errFullName,
+    whatsappNo: errwhatsappNo,
+    usn: errUsn,
+    permanentCity: errPermanentCity,
+    tenthPercentage: errTenthPercentage,
+    pucDiploma: errPucDiploma,
+  } = errors;
+
+  const { getRootProps, getInputProps } = useDropzone({
     onDrop: (acceptedFiles) => {
-      setDraggedFiles(acceptedFiles);
       setDroppedImage(URL.createObjectURL(acceptedFiles[0]));
     },
     accept: {
@@ -38,7 +66,7 @@ const StudentInfo = ({
     <>
       <Grid
         container
-        className="drag-drop-bg"
+        className="student-info-form-drag-drop-bg"
         {...(droppedImage ? {} : getRootProps())}
         sx={{
           backgroundImage: `url(${droppedImage ? null : dragDropBg.src})`,
@@ -47,23 +75,23 @@ const StudentInfo = ({
         <input {...getInputProps()} />
 
         {droppedImage && (
-          <Grid item className="drop-image-container">
+          <Grid item className="student-info-form-dropped-image-container">
             <Box
-              className="dropped-image"
+              className="student-info-form-dropped-image"
               component="img"
               src={droppedImage}
               alt="dropped-image"
             />
             <RemoveCircleIcon
-              className="delete-icon"
+              className="student-info-form-delete-icon"
               onClick={deleteDroppedImage}
             />
           </Grid>
         )}
 
-        <Grid item className="drag-drop-logo-container">
+        <Grid item className="student-info-form-drag-drop-icon-container">
           {droppedImage ? null : (
-            <Image className="drag-drop-logo" src={dragLogo} alt="drag logo" />
+            <Image className="student-info-form-drag-drop-icon" src={dragLogo} alt="drag logo" />
           )}
         </Grid>
       </Grid>
@@ -76,130 +104,106 @@ const StudentInfo = ({
 
       <Grid
         container
-        className="scroll-bar-container"
+        className="student-info-form-container"
         spacing={2}
         alignItems="baseline"
       >
         <Grid item md={6} xs={12}>
           <InputBoxComponent
-            textLabel="Full Name"
+            textLabel={_FullNameTextLabel_}
             required={true}
             type="text"
-            sx={{
-              width: "100%",
-              backgroundColor: "white",
-              borderRadius: "5px",
-            }}
+            className="student-info-form-input"
             name="fullName"
-            value={stuRegData.fullName}
+            value={fullName}
             onChange={(event) => {
               handleChange(event);
             }}
-            error={!!errors.fullName}
-            errorText={errors.fullName}
+            error={!!errFullName}
+            errorText={errFullName}
           />
         </Grid>
         <Grid item md={6} xs={12}>
           <InputBoxComponent
-            textLabel="WhatsApp Number"
+            className="student-info-form-input"
+            textLabel={_WhatsappNoTextLabel_}
             required={true}
             type="tel"
             name="whatsappNo"
-            value={stuRegData.whatsappNo}
+            value={whatsappNo}
             onChange={(event) => {
               handleChange(event);
             }}
-            sx={{
-              width: "100%",
-              backgroundColor: "white",
-              borderRadius: "5px",
-            }}
-            error={!!errors.whatsappNo}
-            errorText={errors.whatsappNo}
+            error={!!errwhatsappNo}
+            errorText={errwhatsappNo}
             disabled={isChecked}
           />
           <CheckBoxComponent
             label="Same as the primary number"
-            checked={isChecked || stuRegData.phNo === stuRegData.whatsappNo}
+            checked={isChecked || phNo === whatsappNo}
             onChange={handleCheckBoxChange}
           />
         </Grid>
 
         <Grid item md={6} xs={12}>
           <InputBoxComponent
-            textLabel="USN"
+            className="student-info-form-input"
+            textLabel={_UsnTextLabel_}
             required={true}
             type="text"
             name="usn"
-            value={stuRegData.usn}
+            value={usn}
             onChange={(event) => {
               handleChange(event);
             }}
-            sx={{
-              width: "100%",
-              backgroundColor: "white",
-              borderRadius: "5px",
-            }}
-            error={!!errors.usn}
-            errorText={errors.usn}
+            error={!!errUsn}
+            errorText={errUsn}
           />
         </Grid>
         <Grid item md={6} xs={12}>
           <InputBoxComponent
-            textLabel="Permanent City"
+            className="student-info-form-input"
+            textLabel={_PermanentCityTextLabel_}
             required={true}
             type="text"
             name="permanentCity"
-            value={stuRegData.permanentCity}
+            value={permanentCity}
             onChange={(event) => {
               handleChange(event);
             }}
-            sx={{
-              width: "100%",
-              backgroundColor: "white",
-              borderRadius: "5px",
-            }}
-            error={!!errors.permanentCity}
-            errorText={errors.permanentCity}
+            error={!!errPermanentCity}
+            errorText={errPermanentCity}
           />
         </Grid>
 
         <Grid item md={6} xs={12}>
           <InputBoxComponent
-            textLabel="10th Percentage"
+            className="student-info-form-input"
+            textLabel={_TenthPercentageTextLabel_}
             required={true}
             type="text"
             name="tenthPercentage"
-            value={stuRegData.tenthPercentage}
+            value={tenthPercentage}
             onChange={(event) => {
               handleChange(event);
             }}
-            sx={{
-              width: "100%",
-              backgroundColor: "white",
-              borderRadius: "5px",
-            }}
-            error={!!errors.tenthPercentage}
-            errorText={errors.tenthPercentage}
+            error={!!errTenthPercentage}
+            errorText={errTenthPercentage}
           />
         </Grid>
         <Grid item md={6} xs={12}>
           <InputBoxComponent
-            textLabel="PUC / Diploma Percentage"
+            className="student-info-form-input"
+            textLabel={_PucDiplomaPercentage_}
             required={true}
             type="text"
             name="pucDiploma"
-            value={stuRegData.pucDiploma}
+            value={pucDiploma}
             onChange={(event) => {
               handleChange(event);
             }}
-            sx={{
-              width: "100%",
-              backgroundColor: "white",
-              borderRadius: "5px",
-            }}
-            error={!!errors.pucDiploma}
-            errorText={errors.pucDiploma}
+            error={!!errPucDiploma}
+            errorText={errPucDiploma}
           />
         </Grid>
       </Grid>

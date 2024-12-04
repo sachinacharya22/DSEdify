@@ -13,7 +13,6 @@ const CheckBoxComponent = ({
   checked = false,
   onChange = () => {},
   label = "",
-  indeterminate = false,
 }) => {
   return (
     <>
@@ -23,7 +22,6 @@ const CheckBoxComponent = ({
             control={
               <Checkbox
               name={name}
-                indeterminate={indeterminate}
                 checked={checked}
                 size="medium"
                 sx={{
@@ -31,16 +29,13 @@ const CheckBoxComponent = ({
                   "&.Mui-checked": {
                     color: "#0F6F9A",
                   },
-                  "&.MuiCheckbox-indeterminate": {
-                    color: "#0F6F9A !important",
-                  },
                 }}
               />
             }
             sx={{
               "& .MuiFormControlLabel-label": {
                 color: "#4a4a4a",
-                fontSize: "13px",
+                fontSize: "12px",
                 fontWeight: "600",
               },
             }}

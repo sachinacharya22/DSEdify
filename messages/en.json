@@ -1,0 +1,73 @@
+{
+  "_RegistrationForm_": {
+    "_Step_": "Step",
+    "_Step_3_": "/3",
+    "_PageTitle_": "Student Registration Form",
+    "_Page_Sub_Title": "Drive Code: ABC123"
+  },
+  "_Back_Coninue_Btn_": {
+    "_BackBtnLabel_": "back",
+    "_ContinueBtnLabel_": "Continue",
+    "_SubmitBtnLabel_": "Submit"
+  },
+  "_VerificationForm_": {
+    "_PhoneNumberInputAdornment_": " +91 | ",
+    "_PhoneNumberTextLable_": "Primary Phone Number",
+    "_EmailTextLabel_": "Email",
+    "_VerifyNumberBtnLabel_": "Verify Number",
+    "_VerifyEmailBtnLabel_": "Verify Email",
+    "_VerifiedBtnLabel_": "Verified",
+    "_GetStartedBtn_": "Get Started"
+  },
+  "_StudentInfoForm_": {
+    "_FullNameTextLabel_": "Full Name",
+    "_WhatsappNoTextLabel_": "Whatsapp Number",
+    "_UsnTextLabel_": "usn",
+    "_PermanentCityTextLabel_": "Permanent City",
+    "_TenthPercentageTextLabel_": "10th Percentage",
+    "_PucDiplomaPercentage_": "PUC/Diploma Percentage"
+  },
+  "_EducationForm_": {
+    "_DegreeSpecializationTextLabel_": "Degree Specialization",
+    "_BranchTextLabel_": "Branch",
+    "_GradingSystemTextLabel_": "Grading System",
+    "_DegreePercentageTextlabel_": "Degree Percentage",
+    "_EarliarBacklogsLabel_": "Any Earlier Backlogs",
+    "_PrsentBacklogsLabel_": "Any Present Backlogs",
+    "_AddDegreeBtnLabel_": "Add Degree",
+    "_RemoveDegreeBtnLabel_": "Remove degree"
+  },
+  "_SpecializationsLabel_": {
+    "_AiMl_": "Artificial Intelligence & Machine Learning (AI/ML)",
+    "_SoftwareEngineering_": "Software Engineering",
+    "_AutomotiveEngineering_": "Automotive Engineering"
+  },
+
+  "_BranchesLabel_": {
+    "_BbaMba_": "Business Administration (BBA/MBA)",
+    "_ChemicalEngineering_": "Chemical Engineering",
+    "_It_": "Information Technology"
+  },
+  "_GradingLabel_": {
+    "_Percentage_": "Percentage",
+    "_Cgpa_": "CGPA"
+  },
+
+  "_CongratulationsPage_": {
+    "_Title_": "Congratulations",
+    "_SubTitle_": "Registration Successful",
+    "_BackToHomeBtnLabel_": "Back To Home"
+  },
+
+  "_ValidationMessage_": {
+    "_FieldRequired_": "This field is required",
+    "_ImageRequired_": "Image is required",
+    "_Email_": "Invalid Email",
+    "_Numbers_": "Please enter a 10 digit number.",
+    "_FullName_": "enter a valid Name",
+    "_Usn_": "Invalid USN format. A valid USN should be in the format 'YYYYCS123' (e.g., '2021CS101').",
+    "_PermanentCity": "enter a valid city",
+    "_Percentage_": "Invalid input. Percentage must be a number between 0 and 100.",
+    "_CGPA_": "CGPA must be between 1 and 10."
+  }
+}

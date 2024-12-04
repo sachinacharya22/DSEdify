@@ -8,13 +8,13 @@ import regLeftBgPageFour from "@/assets/pages/ladyimage.png";
 import mainBg from "@/assets/pages/background.jpeg";
 import DsedifyLogo from "@/assets/logo/edifyLogo.png";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import ButtonComponent from "@/components/atoms/Buttoncomponent/page";
-import Verification from "./Verification";
-import StudentInfo from "./StudentInfo";
-import Education from "./Education";
-import Success from "./Success";
-import validationMessage from "@/constants/validationMessages/page";
+import ButtonComponent from "@/components/atoms/Buttoncomponent";
+import Verification from "@/app/registration/verification";
+import StudentInfo from "@/app/registration/studentInfo";
+import Education from "@/app/registration/education";
+import Success from "@/app/registration/success";
 import validationRegex from "@/services/utils/regexUtils";
+import en from "../../../messages/en.json";
 import Image from "next/image";
 
 const {
@@ -27,19 +27,23 @@ const {
   cgpaRegex,
 } = validationRegex;
 const {
-  _FieldRequired_,
-  _ImageRequired_,
-  _Email_,
-  _Numbers_,
-  _FullName_,
-  _Usn_,
-  _PermanentCity,
-  _Percentage_,
-  _CGPA_,
-} = validationMessage;
+  _RegistrationForm_: { _PageTitle_, _Step_, _Step_3_, _Page_Sub_Title },
+  _Back_Coninue_Btn_: { _BackBtnLabel_, _ContinueBtnLabel_, _SubmitBtnLabel_ },
+  _ValidationMessage_: {
+    _FieldRequired_,
+    _ImageRequired_,
+    _Email_,
+    _Numbers_,
+    _FullName_,
+    _Usn_,
+    _PermanentCity,
+    _Percentage_,
+    _CGPA_,
+  },
+} = en;
 
 const Registration = () => {
-  const [activePage, setActivePage] = useState(1);
+  const [activePage, setActivePage] = useState(3);
 
   const [stuRegData, setStuRegData] = useState({
     phNo: "",
@@ -53,10 +57,23 @@ const Registration = () => {
     pucDiploma: "",
   });
 
-  const [draggedFiles, setDraggedFiles] = useState([]);
+  const {
+    phNo,
+    email,
+    fullName,
+    whatsappNo,
+    usn,
+    permanentCity,
+    tenthPercentage,
+    pucDiploma,
+  } = stuRegData;
+
   const [droppedImage, setDroppedImage] = useState(null);
 
   const [isChecked, setIsChecked] = useState(false);
+
+  const [isPhoneValid, setIsPhoneValid] = useState(false);
+  const [isEmailValid, setIsEmailValid] = useState(false);
 
   const [errors, setErrors] = useState({
     phNo: "",
@@ -76,16 +93,6 @@ const Registration = () => {
     degreePercentage: "",
   });
 
-  const handleChange = (event) => {
-    setStuRegData({
-      ...stuRegData,
-      [event.target.name]: event.target.value,
-    });
-  };
-
-  const [isPhoneValid, setIsPhoneValid] = useState(false);
-  const [isEmailValid, setIsEmailValid] = useState(false);
-
   const [degrees, setDegrees] = useState([
     {
       id: Date.now(),
@@ -93,23 +100,30 @@ const Registration = () => {
       branch: "",
       gradingSystem: "",
       degreePercentage: "",
+      errors: {},
     },
   ]);
-
 
   const [backlogs, setBacklogs] = useState({
     earlierBacklogs: false,
     presentBacklogs: false,
   });
 
+  const handleChange = (event) => {
+    setStuRegData({
+      ...stuRegData,
+      [event.target.name]: event.target.value,
+    });
+  };
+
   const validatePhoneNumber = () => {
     let formErrors = { phNo: "" };
     let isValid = true;
 
-    if (!stuRegData.phNo) {
+    if (!phNo) {
       formErrors.phNo = _FieldRequired_;
       isValid = false;
-    } else if (!phoneNumberRegex.test(stuRegData.phNo)) {
+    } else if (!phoneNumberRegex.test(phNo)) {
       formErrors.phNo = _Numbers_;
       isValid = false;
     }
@@ -122,10 +136,10 @@ const Registration = () => {
   const validateEmail = () => {
     let formErrors = { email: "" };
     let isValid = true;
-    if (!stuRegData.email) {
+    if (!email) {
       formErrors.email = _FieldRequired_;
       isValid = false;
-    } else if (!emailRegex.test(stuRegData.email)) {
+    } else if (!emailRegex.test(email)) {
       formErrors.email = _Email_;
       isValid = false;
     }
@@ -138,50 +152,50 @@ const Registration = () => {
     let formErrors = {};
     let isValid = true;
 
-    if (!stuRegData.fullName) {
+    if (!fullName) {
       formErrors.fullName = _FieldRequired_;
       isValid = false;
-    } else if (!personNameRegex.test(stuRegData.fullName)) {
+    } else if (!personNameRegex.test(fullName)) {
       formErrors.fullName = _FullName_;
       isValid = false;
     }
 
-    if (!stuRegData.whatsappNo) {
+    if (!whatsappNo) {
       formErrors.whatsappNo = _FieldRequired_;
       isValid = false;
-    } else if (!phoneNumberRegex.test(stuRegData.whatsappNo)) {
+    } else if (!phoneNumberRegex.test(whatsappNo)) {
       formErrors.whatsappNo = _Numbers_;
       isValid = false;
     }
 
-    if (!stuRegData.usn) {
+    if (!usn) {
       formErrors.usn = _FieldRequired_;
       isValid = false;
-    } else if (!seatNumberRegex.test(stuRegData.usn)) {
+    } else if (!seatNumberRegex.test(usn)) {
       formErrors.usn = _Usn_;
       isValid = false;
     }
 
-    if (!stuRegData.permanentCity) {
+    if (!permanentCity) {
       formErrors.permanentCity = _FieldRequired_;
       isValid = false;
-    } else if (!permanentCityRegex.test(stuRegData.permanentCity)) {
+    } else if (!permanentCityRegex.test(permanentCity)) {
       formErrors.permanentCity = _PermanentCity;
       isValid = false;
     }
 
-    if (!stuRegData.tenthPercentage) {
+    if (!tenthPercentage) {
       formErrors.tenthPercentage = _FieldRequired_;
       isValid = false;
-    } else if (!percentageRegex.test(stuRegData.tenthPercentage)) {
+    } else if (!percentageRegex.test(tenthPercentage)) {
       formErrors.tenthPercentage = _Percentage_;
       isValid = false;
     }
 
-    if (!stuRegData.pucDiploma) {
+    if (!pucDiploma) {
       formErrors.pucDiploma = _FieldRequired_;
       isValid = false;
-    } else if (!percentageRegex.test(stuRegData.pucDiploma)) {
+    } else if (!percentageRegex.test(pucDiploma)) {
       formErrors.pucDiploma = _Percentage_;
       isValid = false;
     }
@@ -308,53 +322,72 @@ const Registration = () => {
     }));
   };
 
+  const getBackgroundImage = (activePage) => {
+    switch (activePage) {
+      case 1:
+        return regLeftBgPageOne.src;
+      case 2:
+        return regLeftBgPageTwo.src;
+      case 3:
+        return regLeftBgPageThree.src;
+      case 4:
+        return regLeftBgPageFour.src;
+      default:
+        return "";
+    }
+  };
+
   return (
-    <Grid container className="body-container">
+    <Grid container className="page-container">
       <Grid
         container
-        className="left-bg-container vh-100 w-100p d-none d-md-none d-lg-block"
+        className="page-container-left-background vh-100 d-none d-md-none d-lg-block"
         md={4}
         sx={{
-          backgroundImage: `url(${
-            activePage === 1
-              ? regLeftBgPageOne.src
-              : activePage === 2
-              ? regLeftBgPageTwo.src
-              : activePage === 3
-              ? regLeftBgPageThree.src
-              : regLeftBgPageFour.src
-          })`,
+          backgroundImage: `url(${getBackgroundImage(activePage)})`,
         }}
       ></Grid>
 
       <Grid
         container
-        className="main-bg-container vh-100 col-md-12 col-sm-12 col-xs-12 col-lg-8"
+        className="page-container-main-background vh-100 col-md-12 col-sm-12 col-xs-12 col-lg-8"
         sx={{ backgroundImage: `url(${mainBg.src})` }}
       >
         {activePage === 4 ? null : (
-          <Grid item className="steps-text-container w-100p">
-            <Typography className="steps-text fw-700">
-              Step <span className="steps-span-text">{activePage}</span>/3
+          <Grid item className="page-container-steps-text w-100p">
+            <Typography className="page-container-steps-text-title fw-700">
+              {_Step_}{" "}
+              <span className="page-container-steps-text-current-step">
+                {activePage}
+              </span>
+              {_Step_3_}
             </Typography>
           </Grid>
         )}
 
-        <Grid item className="logo-container vh-100 w-100p">
-          <Image src={DsedifyLogo} alt="DS-Edify-Log" className="edify-logo" />
+        <Grid item className="page-container-logo-container vh-100 w-100p">
+          <Image
+            src={DsedifyLogo}
+            alt="DS-Edify-Log"
+            className="page-container-logo"
+          />
           {activePage === 4 ? null : (
             <>
-              <Typography className="main-title fw-700 mt-1" variant="h4">
-                Student Registration Form
+              <Typography
+                className="page-container-title fw-700 mt-1"
+                variant="h4"
+              >
+                {_PageTitle_}
               </Typography>
 
-              <Typography className="sub-title mb-1" variant="h6">
-                Drive Code: ABC123
+              <Typography
+                className="page-container-sub-title mb-1"
+                variant="h6"
+              >
+                {_Page_Sub_Title}
               </Typography>
             </>
           )}
-
-          {/* ------------------------------------------------------------------------------------------------------------------ */}
 
           {activePage === 1 && (
             <Verification
@@ -377,7 +410,6 @@ const Registration = () => {
               handleChange={handleChange}
               handleCheckBoxChange={handleCheckBoxChange}
               isChecked={isChecked}
-              setDraggedFiles={setDraggedFiles}
               setDroppedImage={setDroppedImage}
               droppedImage={droppedImage}
             />
@@ -393,18 +425,17 @@ const Registration = () => {
               handleCheckBoxTwo={handleCheckBoxTwo}
               errors={errors}
               validateFields={validateFields}
+              setErrors={setErrors}
             />
           )}
 
           {activePage === 4 && <Success setActivePage={setActivePage} />}
 
-          {/* ------------------------------------------------------------------------------------------------------------------ */}
-
-          {activePage === 1 || activePage === 4 ? null : (
-            <Grid className="common-btn" item sx={{ width: "87%", mt: 7 }}>
+          {[2, 3].includes(activePage) && (
+            <Grid className="page-container-common-buttons mt-5" item>
               <ButtonComponent
-                muiProps="back-btn-component border-0"
-                label="Back"
+                muiProps="page-container-back-button border-0"
+                label={_BackBtnLabel_}
                 showIcon={true}
                 icon={<ArrowBackIosIcon />}
                 onBtnClick={() => {
@@ -412,8 +443,8 @@ const Registration = () => {
                 }}
               />
               <ButtonComponent
-                muiProps="continue-btn-component"
-                label={activePage === 2 ? "Continue" : "submit"}
+                muiProps="page-container-continue-button"
+                label={activePage === 2 ? _ContinueBtnLabel_ : _SubmitBtnLabel_}
                 borderRadius="30px"
                 onBtnClick={() =>
                   activePage === 2 ? validateStuInfo() : validateDegreeFields()

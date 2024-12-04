@@ -1,53 +1,44 @@
 @import "./variable.scss";
 
-.back-to-home-btn {
+.congratulations-page-subtitle {
+  color: $primary_color;
+
+  @media (min-width: 576px) {
+    font-size: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    font-size: 1.8rem;
+  }
+}
+
+.congratulations-page-title {
+  color: $orange_1;
+
+  @media (min-width: 576px) {
+    font-size: 2.2rem;
+  }
+
+  @media (min-width: 768px) {
+    font-size: 2.5rem;
+  }
+}
+
+.congratulations-page-back-to-home-btn {
   border-radius: 20px;
   background: $primary_color;
   color: $white_1;
   max-width: 200px;
   border: none;
   cursor: pointer;
-}
 
-.back-to-home-btn:hover {
-  background-color: $primary_color;
-  color: $white_1;
-}
+  &:hover {
+    background-color: $primary_color;
+    color: $white_1;
+  }
 
-@media (min-width: 576px) {
-  .back-to-home-btn {
+  @media (min-width: 576px) {
     font-size: 1rem;
     padding: 10px 20px;
-  }
-}
-
-.success-text {
-  color: $primary_color;
-}
-
-@media (min-width: 576px) {
-  .success-text {
-    font-size: 1.5rem;
-  }
-}
-
-@media (min-width: 768px) {
-  .success-text {
-    font-size: 1.8rem;
-  }
-}
-
-.cong-text {
-  color: $orange;
-}
-@media (min-width: 576px) {
-  .cong-text {
-    font-size: 2.2rem;
-  }
-}
-
-@media (min-width: 768px) {
-  .cong-text {
-    font-size: 2.5rem;
   }
 }

@@ -1,11 +1,9 @@
 "use client";
-import React, {  useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import TextField from "@mui/material/TextField";
 import { makeStyles } from "@mui/styles";
-import { FormHelperText, Grid, Tooltip, Typography } from "@mui/material";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { FormHelperText, Grid, Typography } from "@mui/material";
 import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
 
 const useStyles = makeStyles({
   customTextField: {
@@ -35,21 +33,17 @@ const InputBoxComponent = ({
   placeholder = "",
   sx = {},
   onChange = () => {},
-  onBlur = () => {},
-  onClick = () => {},
-  onKeyPress = () => {},
   name = "",
   autoComplete = "ON",
   multiline = false,
   rows = 0,
   textLabel = "",
   required = false,
-  currency = false,
   endIconProp = "",
   maxLength = 255,
   autoFocus = false,
   subText = "",
-  borderRadius="6px",
+  borderRadius = "6px",
   ...props
 }) => {
   const classes = useStyles();
@@ -58,23 +52,6 @@ const InputBoxComponent = ({
     showPassword: false,
   });
   const [inputErrorMsg, setInputErrorMsg] = useState("");
-
-  const handleClickShowPassword = () => {
-    setPassword({
-      ...password,
-      showPassword: !password.showPassword,
-    });
-  };
-
-  const handleMouseDownPassword = (event) => {
-    // event.preventDefault();
-  };
-
-  const handleWheel = (event) => {
-    if (type === "number") {
-      event.target.blur();
-    }
-  };
 
   const fileTypeStyles =
     type === "file"
@@ -117,7 +94,7 @@ const InputBoxComponent = ({
     <>
       <Grid mb="3px" px="6px">
         <Typography
-          className="fs-14 fw-600"
+          className="fs-12 fw-600"
           sx={{ color: disabled ? "#ccc" : "#1f3763" }}
         >
           {textLabel}
@@ -166,10 +143,6 @@ const InputBoxComponent = ({
           ...sx,
         }}
         onChange={handleChange}
-        onKeyPress={onKeyPress}
-        onBlur={onBlur}
-        onClick={onClick}
-        onWheel={handleWheel}
         classes={{ root: classes.customTextField }}
         multiline={multiline}
         rows={rows}
@@ -178,44 +151,16 @@ const InputBoxComponent = ({
           autoComplete: autoComplete,
           endAdornment:
             iconName === "password" ? (
-              <>
-                <Divider
-                  orientation="vertical"
-                  variant="middle"
-                  flexItem
-                  sx={{
-                    color: "red",
-                    background: "#A6A6A6",
-                    width: "1.2px !important",
-                  }}
-                />
-                <Tooltip
-                  title={
-                    password.showPassword ? "Hide Password" : "Show Password"
-                  }
-                  placement={"top"}
-                >
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                  >
-                    {password.showPassword ? (
-                      <Visibility
-                        sx={{
-                          fill: "#A6A6A6",
-                        }}
-                      />
-                    ) : (
-                      <VisibilityOff
-                        sx={{
-                          fill: "#A6A6A6",
-                        }}
-                      />
-                    )}
-                  </IconButton>
-                </Tooltip>
-              </>
+              <Divider
+                orientation="vertical"
+                variant="middle"
+                flexItem
+                sx={{
+                  color: "red",
+                  background: "#A6A6A6",
+                  width: "1.2px !important",
+                }}
+              />
             ) : (
               endIconProp
             ),

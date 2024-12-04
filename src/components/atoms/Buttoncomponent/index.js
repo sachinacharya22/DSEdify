@@ -33,8 +33,6 @@ const ButtonComponent = ({
   icon = <Delete />,
   showIcon = false,
   sx = {},
-  onMouseLeave = () => {},
-  onMouseEnter = () => {},
   ...props
 }) => {
   const classes = useStyles();
@@ -53,8 +51,6 @@ const ButtonComponent = ({
       {...IconProp}
       variant={variant}
       onClick={onBtnClick}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
       size={size}
       className={`px-3 py-2 ${
         disabled === true

@@ -1,27 +1,55 @@
 @import "./variable.scss";
 
-.number-container{
-    width: 90%;
-    max-width: 600px;
+.verification-form {
+  width: 90%;
+  max-width: 600px;
+
+  .verification-form-input-box {
+    background-color: $white_1;
+    border-radius: 5px;
+    .verification-form-input-adornment {
+      color: inherit;
+    }
+  }
+
+  .verification-form-phone-verified-btn{
+    height: 40px;
+
+    &.Mui-disabled {
+      background-color: $green_1;
+      color: $white_1;
+    }
+  }
 }
 
-.email-container{
-    width: 90%;
-    max-width: 600px;
-    margin-bottom: 20px;
+.verification-form-email-container {
+  width: 90%;
+  max-width: 600px;
+  margin-bottom: 10px;
+
+  .verification-form-input-box {
+    background-color: $white_1;
+    border-radius: 5px;
+  }
+
+  .verification-form-email-verified-btn {
+    height: 40px;
+
+    &.Mui-disabled {
+      background-color: $green_1;
+      color: $white_1;
+    }
+  }
 }
 
-.number-adornment{
-    color: inherit;
-}
+.verification-form-get-started-btn {
+  background: $primary_color;
+  width: 200px;
+  height: 50px;
 
-.get-started-btn{
-    background: $primary_color;
-    width: 200px;
-    height: 50px;
-}
-
-.get-started-btn:hover{
+  &:hover {
     background: $primary_color;
     color: $white_1;
+  }
 }
+

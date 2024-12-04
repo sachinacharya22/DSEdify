@@ -1,20 +1,23 @@
 @import "./variable.scss";
 
-.add-degree-logo {
-  width: 25px;
-  height: auto;
-  color: $primary_color;
-  background: none;
+.icon-red {
+  color: $red_1;
 }
 
-.add-degree-btn {
+.education-form-add-degree-btn {
   color: $primary_color;
   background: none;
-}
 
-.add-degree-btn:hover {
-  background: inherit;
-  color: inherit;
+  &:hover {
+    background: inherit;
+    color: inherit;
+  }
+  .education-form-add-degree-icon {
+    width: 25px;
+    height: auto;
+    color: $primary_color;
+    background: none;
+  }
 }
 
 .scroll-bar-container {
@@ -22,22 +25,24 @@
   margin: 0 auto;
   overflow-y: auto;
   padding: 8px;
-}
 
-.degrees-container {
-  border-bottom: 2px dashed $primary_color;
-}
+  .degrees-container {
+    border-bottom: 2px dashed $primary_color;
 
-.remove-degree-btn {
-  background: none;
-  color: $primary_color;
-}
+    .education-form-remove-degree-btn {
+      background: none;
+      color: $primary_color;
 
-.remove-degree-btn:hover {
-  background: inherit;
-  color: inherit;
-}
+      &:hover {
+        background: inherit;
+        color: inherit;
+      }
+    }
+  }
 
-.icon-red {
-  color: red;
+  .education-form-input-box {
+    width: 100%;
+    background-color: $white_1;
+    border-radius: 5px;
+  }
 }
