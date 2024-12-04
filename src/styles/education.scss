@@ -10,7 +10,7 @@
 
   &:hover {
     background: inherit;
-    color: inherit;
+    color: $primary_color;
   }
   .education-form-add-degree-icon {
     width: 25px;
@@ -35,7 +35,7 @@
 
       &:hover {
         background: inherit;
-        color: inherit;
+        color: $primary_color;
       }
     }
   }

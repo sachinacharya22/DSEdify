@@ -43,7 +43,7 @@ const {
 } = en;
 
 const Registration = () => {
-  const [activePage, setActivePage] = useState(3);
+  const [activePage, setActivePage] = useState(1);
 
   const [stuRegData, setStuRegData] = useState({
     phNo: "",
@@ -341,25 +341,31 @@ const Registration = () => {
     <Grid container className="page-container">
       <Grid
         container
-        className="page-container-left-background vh-100 d-none d-md-none d-lg-block"
+        className="page-container__left-background vh-100 d-none d-md-none d-lg-block"
         md={4}
-        sx={{
-          backgroundImage: `url(${getBackgroundImage(activePage)})`,
-        }}
-      ></Grid>
+      >
+        <Image
+          className="page-container__left-background"
+          src={getBackgroundImage(activePage)}
+          alt="left-bg"
+          fill
+          quality={100}
+        />
+      </Grid>
 
       <Grid
         container
-        className="page-container-main-background vh-100 col-md-12 col-sm-12 col-xs-12 col-lg-8"
+        className="page-container__main-background vh-100 col-md-12 col-sm-12 col-xs-12 col-lg-8"
         sx={{ backgroundImage: `url(${mainBg.src})` }}
       >
         {activePage === 4 ? null : (
-          <Grid item className="page-container-steps-text w-100p">
+          <Grid
+            item
+            className="page-container__main-background__steps-text w-100p"
+          >
             <Typography className="page-container-steps-text-title fw-700">
               {_Step_}{" "}
-              <span className="page-container-steps-text-current-step">
-                {activePage}
-              </span>
+              <span className="page-container-current-step">{activePage}</span>
               {_Step_3_}
             </Typography>
           </Grid>

@@ -34,7 +34,7 @@ const CheckBoxComponent = ({
             }
             sx={{
               "& .MuiFormControlLabel-label": {
-                color: "#4a4a4a",
+                color: "#203763",
                 fontSize: "12px",
                 fontWeight: "600",
               },

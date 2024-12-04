@@ -22,7 +22,7 @@
   "_StudentInfoForm_": {
     "_FullNameTextLabel_": "Full Name",
     "_WhatsappNoTextLabel_": "Whatsapp Number",
-    "_UsnTextLabel_": "usn",
+    "_UsnTextLabel_": "USN",
     "_PermanentCityTextLabel_": "Permanent City",
     "_TenthPercentageTextLabel_": "10th Percentage",
     "_PucDiplomaPercentage_": "PUC/Diploma Percentage"

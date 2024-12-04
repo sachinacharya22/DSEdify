@@ -27,7 +27,7 @@ const {
 } = en;
 
 const Education = ({
-  degrees = {},
+  degrees = [],
   setDegrees = () => {},
   backlogs = {},
   handleValueChange = () => {},
@@ -48,10 +48,20 @@ const Education = ({
         branch: "",
         gradingSystem: "",
         degreePercentage: "",
-        errors: {},
       },
       ...degrees,
     ]);
+
+    // setErrors(
+    //   {
+    //     id: Date.now(),
+    //     degreeSpecialization: "",
+    //     branch: "",
+    //     gradingSystem: "",
+    //     degreePercentage: "",
+    //   },
+    //   [...errors],
+    // );
   };
 
   const handleRemoveDegree = (id) => {
@@ -65,8 +75,8 @@ const Education = ({
           branch: "",
           gradingSystem: "",
           degreePercentage: "",
-        }
-      )
+        },
+      );
     }
   };
 

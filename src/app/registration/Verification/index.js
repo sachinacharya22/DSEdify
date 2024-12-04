@@ -78,7 +78,7 @@ const Verification = ({
         </Grid>
       </Grid>
 
-      <Grid container className="verification-form-email-container" mt={{ xs: "60px" }}>
+      <Grid container className="verification-form-email-container">
         <Grid container spacing={2} alignItems="center">
           <Grid item xs={12} sm={8} md={8}>
             <InputBoxComponent
