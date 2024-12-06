@@ -9,19 +9,19 @@ const {
   _GradingLabel_: { _Percentage_, _Cgpa_ },
 } = en;
 
-export const specializationOptions = [
+export const SPECIALIZATION_OPTION = [
   { value: "ai_ml",label: _AiMl_},
   { value: "software_engineering", label: _SoftwareEngineering_ },
   { value: "automotive_engineering", label: _AutomotiveEngineering_ },
 ];
 
-export const branches = [
+export const BRANCHES = [
   { value: "bba_mba", label: _BbaMba_ },
   { value: "chemical_engineering", label: _ChemicalEngineering_ },
   { value: "it", label: _It_ },
 ];
 
-export const percentage = [
+export const PERCENTAGE = [
   {value: "percentage",label: _Percentage_},
   {value: "cgpa", label: _Cgpa_},
 ];

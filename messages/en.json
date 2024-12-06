@@ -5,7 +5,10 @@
     "_PageTitle_": "Student Registration Form",
     "_Page_Sub_Title": "Drive Code: ABC123"
   },
-  "_Back_Coninue_Btn_": {
+  "_Components_": {
+    "_BtnLabel_": "Button"
+  },
+  "_CommonButtons_": {
     "_BackBtnLabel_": "back",
     "_ContinueBtnLabel_": "Continue",
     "_SubmitBtnLabel_": "Submit"
@@ -25,7 +28,8 @@
     "_UsnTextLabel_": "USN",
     "_PermanentCityTextLabel_": "Permanent City",
     "_TenthPercentageTextLabel_": "10th Percentage",
-    "_PucDiplomaPercentage_": "PUC/Diploma Percentage"
+    "_PucDiplomaPercentage_": "PUC/Diploma Percentage",
+    "_CheckBoxLabel_": "same as primary number"
   },
   "_EducationForm_": {
     "_DegreeSpecializationTextLabel_": "Degree Specialization",

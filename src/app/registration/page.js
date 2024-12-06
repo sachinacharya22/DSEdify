@@ -1,21 +1,17 @@
 "use client";
 import { Grid, Typography } from "@mui/material";
 import React, { useState } from "react";
-import regLeftBgPageOne from "@/assets/pages/blondguy.png";
-import regLeftBgPageTwo from "@/assets/pages/younggirl.png";
-import regLeftBgPageThree from "@/assets/pages/laptopguy.png";
-import regLeftBgPageFour from "@/assets/pages/ladyimage.png";
 import mainBg from "@/assets/pages/background.jpeg";
-import DsedifyLogo from "@/assets/logo/edifyLogo.png";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ButtonComponent from "@/components/atoms/Buttoncomponent";
 import Verification from "@/app/registration/verification";
-import StudentInfo from "@/app/registration/studentInfo";
+import StudentInfo from "@/app/registration/student-Info";
 import Education from "@/app/registration/education";
 import Success from "@/app/registration/success";
 import validationRegex from "@/services/utils/regexUtils";
 import en from "../../../messages/en.json";
 import Image from "next/image";
+import { getImageByKey } from "@/services/utils/asset-path-utils";
 
 const {
   emailRegex,
@@ -28,7 +24,7 @@ const {
 } = validationRegex;
 const {
   _RegistrationForm_: { _PageTitle_, _Step_, _Step_3_, _Page_Sub_Title },
-  _Back_Coninue_Btn_: { _BackBtnLabel_, _ContinueBtnLabel_, _SubmitBtnLabel_ },
+  _CommonButtons_: { _BackBtnLabel_, _ContinueBtnLabel_, _SubmitBtnLabel_ },
   _ValidationMessage_: {
     _FieldRequired_,
     _ImageRequired_,
@@ -48,7 +44,6 @@ const Registration = () => {
   const [stuRegData, setStuRegData] = useState({
     phNo: "",
     email: "",
-
     fullName: "",
     whatsappNo: "",
     usn: "",
@@ -260,7 +255,7 @@ const Registration = () => {
     setActivePage(activePage + 1);
   };
 
-  const varifyPhoneNumber = () => {
+  const verifyPhoneNumber = () => {
     if (validatePhoneNumber()) {
       setStuRegData((prevState) => ({
         ...prevState,
@@ -268,7 +263,7 @@ const Registration = () => {
       return;
     }
   };
-  const varifyEmail = () => {
+  const verifyEmail = () => {
     if (validateEmail()) {
       setStuRegData((prevState) => ({
         ...prevState,
@@ -306,7 +301,7 @@ const Registration = () => {
     setDegrees(updatedDegrees);
   };
 
-  const handleCheckBoxOne = (event) => {
+  const handleEarlierBacklogsCheckBox = (event) => {
     const isChecked = event.target.checked;
     setBacklogs((prevData) => ({
       ...prevData,
@@ -314,7 +309,7 @@ const Registration = () => {
     }));
   };
 
-  const handleCheckBoxTwo = (event) => {
+  const handlePresentBacklogsCheckBox = (event) => {
     const isChecked = event.target.checked;
     setBacklogs((prevData) => ({
       ...prevData,
@@ -325,15 +320,15 @@ const Registration = () => {
   const getBackgroundImage = (activePage) => {
     switch (activePage) {
       case 1:
-        return regLeftBgPageOne.src;
+        return getImageByKey("registration__page__1");
       case 2:
-        return regLeftBgPageTwo.src;
+        return getImageByKey("registration__page__2");
       case 3:
-        return regLeftBgPageThree.src;
+        return getImageByKey("registration__page__3");
       case 4:
-        return regLeftBgPageFour.src;
+        return getImageByKey("registration__page__4");
       default:
-        return "";
+        return null;
     }
   };
 
@@ -356,8 +351,14 @@ const Registration = () => {
       <Grid
         container
         className="page-container__main-background vh-100 col-md-12 col-sm-12 col-xs-12 col-lg-8"
-        sx={{ backgroundImage: `url(${mainBg.src})` }}
       >
+        <Image
+          className="page-container-main-background"
+          src={getImageByKey("background__main")}
+          alt="main-bg"
+          fill
+          objectFit="cover"
+        />
         {activePage === 4 ? null : (
           <Grid
             item
@@ -373,7 +374,7 @@ const Registration = () => {
 
         <Grid item className="page-container-logo-container vh-100 w-100p">
           <Image
-            src={DsedifyLogo}
+            src={getImageByKey("logo__edify")}
             alt="DS-Edify-Log"
             className="page-container-logo"
           />
@@ -387,7 +388,7 @@ const Registration = () => {
               </Typography>
 
               <Typography
-                className="page-container-sub-title mb-1"
+                className="page-container-sub-title mb-1 fw-700"
                 variant="h6"
               >
                 {_Page_Sub_Title}
@@ -404,8 +405,8 @@ const Registration = () => {
               isEmailValid={isEmailValid}
               isPhoneValid={isPhoneValid}
               handleChange={handleChange}
-              varifyPhoneNumber={varifyPhoneNumber}
-              varifyEmail={varifyEmail}
+              verifyPhoneNumber={verifyPhoneNumber}
+              verifyEmail={verifyEmail}
             />
           )}
 
@@ -427,8 +428,8 @@ const Registration = () => {
               setDegrees={setDegrees}
               backlogs={backlogs}
               handleValueChange={handleValueChange}
-              handleCheckBoxOne={handleCheckBoxOne}
-              handleCheckBoxTwo={handleCheckBoxTwo}
+              handleEarlierBacklogsCheckBox={handleEarlierBacklogsCheckBox}
+              handlePresentBacklogsCheckBox={handlePresentBacklogsCheckBox}
               errors={errors}
               validateFields={validateFields}
               setErrors={setErrors}

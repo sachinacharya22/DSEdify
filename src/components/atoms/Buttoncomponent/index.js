@@ -1,23 +1,14 @@
 "use client";
 import { Button } from "@mui/material";
-import { makeStyles } from "@mui/styles";
 import { Delete } from "@mui/icons-material";
-
-const useStyles = makeStyles({
-  root: {
-    "&:disabled": {
-      backgroundColor: "#706c61",
-      color: "white",
-    },
-    "&:hover": {
-      backgroundColor: "inherit", 
-      boxShadow: "none", 
-    },
-  },
-});
+import "@/styles/button-comp.scss";
+import en from "../../../../messages/en.json";
+const {
+  _Components_: { _BtnLabel_ },
+} = en;
 
 const ButtonComponent = ({
-  label = "Button",
+  label = _BtnLabel_,
   variant = "contained",
   onBtnClick = () => {},
   size = "small",
@@ -35,8 +26,6 @@ const ButtonComponent = ({
   sx = {},
   ...props
 }) => {
-  const classes = useStyles();
-
   const IconProp = showIcon
     ? iconPosition === "start"
       ? {
@@ -54,15 +43,14 @@ const ButtonComponent = ({
       size={size}
       className={`px-3 py-2 ${
         disabled === true
-          ? classes.root
-          : 
-            variant === "contained"
-            ? `${bgColor} ${textColor}`
-            : variant === "outlined"
-            ? `text-clr-btn`
-            : variant === "text"
-            ? `${textColor}`
-            : ""
+          ? "button-root"
+          : variant === "contained"
+          ? `${bgColor} ${textColor}`
+          : variant === "outlined"
+          ? "text-clr-btn"
+          : variant === "text"
+          ? `${textColor}`
+          : ""
       }  
       ${muiProps}`}
       sx={{

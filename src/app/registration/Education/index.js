@@ -1,16 +1,17 @@
 import React from "react";
 import { Grid, MenuItem } from "@mui/material";
-import AddBtnIcon from "@/assets/icons/Frame.png";
+import AddBtnIcon from "@/assets/icons/add-btn-icon.png";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ButtonComponent from "@/components/atoms/Buttoncomponent";
 import CheckBoxComponent from "@/components/atoms/CheckBoxComponent";
 import InputBoxComponent from "@/components/atoms/InputBoxComponent";
 import Image from "next/image";
 import en from "../../../../messages/en.json";
+import { getImageByKey } from "@/services/utils/asset-path-utils";
 import {
-  specializationOptions,
-  branches,
-  percentage,
+  SPECIALIZATION_OPTION,
+  BRANCHES,
+  PERCENTAGE,
 } from "@/constants/options";
 
 const {
@@ -31,8 +32,8 @@ const Education = ({
   setDegrees = () => {},
   backlogs = {},
   handleValueChange = () => {},
-  handleCheckBoxOne = () => {},
-  handleCheckBoxTwo = () => {},
+  handleEarlierBacklogsCheckBox = () => {},
+  handlePresentBacklogsCheckBox = () => {},
   errors = {},
   setErrors = () => {},
   validateFields = () => {},
@@ -51,17 +52,6 @@ const Education = ({
       },
       ...degrees,
     ]);
-
-    // setErrors(
-    //   {
-    //     id: Date.now(),
-    //     degreeSpecialization: "",
-    //     branch: "",
-    //     gradingSystem: "",
-    //     degreePercentage: "",
-    //   },
-    //   [...errors],
-    // );
   };
 
   const handleRemoveDegree = (id) => {
@@ -69,14 +59,12 @@ const Education = ({
       setDegrees((prevDegree) =>
         prevDegree.filter((degree) => degree.id !== id)
       );
-      setErrors(
-        {
-          degreeSpecialization: "",
-          branch: "",
-          gradingSystem: "",
-          degreePercentage: "",
-        },
-      );
+      setErrors({
+        degreeSpecialization: "",
+        branch: "",
+        gradingSystem: "",
+        degreePercentage: "",
+      });
     }
   };
 
@@ -93,7 +81,7 @@ const Education = ({
           icon={
             <Image
               className="education-form-add-degree-icon"
-              src={AddBtnIcon}
+              src={getImageByKey("icon__add_button")}
               alt="add btn icon"
             />
           }
@@ -147,7 +135,7 @@ const Education = ({
                   errorText={errors[index]?.degreeSpecialization}
                   select
                 >
-                  {specializationOptions.map((option) => (
+                  {SPECIALIZATION_OPTION.map((option) => (
                     <MenuItem
                       key={option.value}
                       className="menu-item"
@@ -172,7 +160,7 @@ const Education = ({
                   errorText={errors[index]?.branch}
                   select
                 >
-                  {branches.map((option) => (
+                  {BRANCHES.map((option) => (
                     <MenuItem
                       key={option.value}
                       className="menu-item"
@@ -197,7 +185,7 @@ const Education = ({
                   errorText={errors[index]?.gradingSystem}
                   select
                 >
-                  {percentage.map((percent) => (
+                  {PERCENTAGE.map((percent) => (
                     <MenuItem key={percent.value} value={percent.value}>
                       {percent.label}
                     </MenuItem>
@@ -230,13 +218,13 @@ const Education = ({
           name="earlierBacklogs"
           label={_EarliarBacklogsLabel_}
           checked={backlogs.earlierBacklogs}
-          onChange={handleCheckBoxOne}
+          onChange={handleEarlierBacklogsCheckBox}
         />
         <CheckBoxComponent
           name="presentBacklogs"
           label={_PrsentBacklogsLabel_}
           checked={backlogs.presentBacklogs}
-          onChange={handleCheckBoxTwo}
+          onChange={handlePresentBacklogsCheckBox}
         />
       </Grid>
     </>

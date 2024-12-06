@@ -2,8 +2,8 @@
 import { Grid, Typography } from "@mui/material";
 import React from "react";
 import { useDropzone } from "react-dropzone";
-import dragDropBg from "@/assets/icons/dragDropBg.png";
-import dragLogo from "@/assets/icons/Group 2.png";
+import dragDropBg from "@/assets/icons/drag-drop-bg.png";
+import dragLogo from "@/assets/icons/drag-drop-icon.png";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import { Box } from "@mui/system";
 import InputBoxComponent from "@/components/atoms/InputBoxComponent";
@@ -19,6 +19,7 @@ const {
     _PermanentCityTextLabel_,
     _TenthPercentageTextLabel_,
     _PucDiplomaPercentage_,
+    _CheckBoxLabel_,
   },
 } = en;
 
@@ -91,7 +92,11 @@ const StudentInfo = ({
 
         <Grid item className="student-info-form-drag-drop-icon-container">
           {droppedImage ? null : (
-            <Image className="student-info-form-drag-drop-icon" src={dragLogo} alt="drag logo" />
+            <Image
+              className="student-info-form-drag-drop-icon"
+              src={dragLogo}
+              alt="drag logo"
+            />
           )}
         </Grid>
       </Grid>
@@ -139,7 +144,7 @@ const StudentInfo = ({
             disabled={isChecked}
           />
           <CheckBoxComponent
-            label="Same as the primary number"
+            label={_CheckBoxLabel_}
             checked={isChecked || phNo === whatsappNo}
             onChange={handleCheckBoxChange}
           />

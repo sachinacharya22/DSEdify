@@ -39,6 +39,9 @@ input:-webkit-autofill:active {
     position: relative;
     background-size: cover;
     background-position: center;
+    .page-container-main-background {
+      z-index: -1;
+    }
 
     &__steps-text {
       position: absolute;

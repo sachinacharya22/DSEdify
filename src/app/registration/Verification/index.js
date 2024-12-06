@@ -25,8 +25,8 @@ const Verification = ({
   isPhoneValid = false,
   handleChange = () => {},
   errors = {},
-  varifyEmail = () => {},
-  varifyPhoneNumber = () => {},
+  verifyEmail = () => {},
+  verifyPhoneNumber = () => {},
 }) => {
   const { phNo, email } = stuRegData;
   const { phNo: errPhno, email: errEmail } = errors;
@@ -46,6 +46,7 @@ const Verification = ({
               type="tel"
               value={phNo}
               name="phNo"
+              autoFocus={true}
               onChange={(event) => {
                 handleChange(event);
               }}
@@ -53,7 +54,10 @@ const Verification = ({
               errorText={errPhno ? errPhno : " "}
               InputProps={{
                 startAdornment: (
-                  <InputAdornment className="verification-form-input-adornment" position="start">
+                  <InputAdornment
+                    className="verification-form-input-adornment"
+                    position="start"
+                  >
                     {_PhoneNumberInputAdornment_}
                   </InputAdornment>
                 ),
@@ -67,7 +71,7 @@ const Verification = ({
               label={isPhoneValid ? _VerifiedBtnLabel_ : _VerifyNumberBtnLabel_}
               fullWidth
               className="verification-form-phone-verified-btn"
-              onBtnClick={varifyPhoneNumber}
+              onBtnClick={verifyPhoneNumber}
               bgColor={isPhoneValid ? "green" : "bg-btn"}
               disabled={isPhoneValid}
               showIcon={isPhoneValid ? true : false}
@@ -102,7 +106,7 @@ const Verification = ({
               className="verification-form-email-verified-btn"
               label={isEmailValid ? _VerifiedBtnLabel_ : _VerifyEmailBtnLabel_}
               fullWidth
-              onBtnClick={varifyEmail}
+              onBtnClick={verifyEmail}
               bgColor={isEmailValid ? "green" : "bg-btn"}
               disabled={isEmailValid}
               showIcon={isEmailValid ? true : false}

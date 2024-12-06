@@ -1,0 +1,33 @@
+@import "./variable.scss";
+
+.custom-text-field input::placeholder {
+  font-size: 14px;
+}
+
+.input-color {
+  color: $gray_1;
+}
+
+.text-field-root:hover > fieldset {
+  border-color: $blue_1;
+  border-radius: 6px;
+}
+
+.text-field-root:focus > fieldset {
+  outline: $gray_1;
+  border-radius: 6px;
+}
+
+.text-field-root > fieldset {
+  border-color: $gray_1;
+  border-radius: 6px;
+}
+
+.divider-custom {
+  background: $gray_1;
+  width: 1.2px !important;
+}
+
+.icon-visibility {
+  fill: $gray_1;
+}

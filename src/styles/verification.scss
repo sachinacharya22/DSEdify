@@ -43,12 +43,16 @@
 }
 
 .verification-form-get-started-btn {
-  background: $primary_color;
+  background: $primary_color !important;
   width: 200px;
   height: 50px;
 
   &:hover {
     background: $primary_color;
+    color: $white_1;
+  }
+  &.Mui-disabled {
+    background-color: $gray_1 !important;
     color: $white_1;
   }
 }

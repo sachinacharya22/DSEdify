@@ -1,0 +1,18 @@
+@import "./variable.scss";
+.button-root:disabled {
+  background-color: $gray_1;
+  color: $white_1;
+}
+
+.bg-btn {
+  background-color: $blue_1;
+  color: $white_1;
+}
+
+.color-white {
+  color: $white_1;
+}
+
+.text-clr-btn {
+  color: $blue_1;
+}
