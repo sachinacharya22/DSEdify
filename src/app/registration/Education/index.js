@@ -1,6 +1,6 @@
+"use client";
 import React from "react";
 import { Grid, MenuItem } from "@mui/material";
-import AddBtnIcon from "@/assets/icons/add-btn-icon.png";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ButtonComponent from "@/components/atoms/Buttoncomponent";
 import CheckBoxComponent from "@/components/atoms/CheckBoxComponent";
@@ -8,11 +8,15 @@ import InputBoxComponent from "@/components/atoms/InputBoxComponent";
 import Image from "next/image";
 import en from "../../../../messages/en.json";
 import { getImageByKey } from "@/services/utils/asset-path-utils";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import {
   SPECIALIZATION_OPTION,
   BRANCHES,
   PERCENTAGE,
 } from "@/constants/options";
+import { useFieldArray, useForm } from "react-hook-form";
+import { validationSchema } from "@/services/validationSchema";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const {
   _EducationForm_: {
@@ -28,45 +32,57 @@ const {
 } = en;
 
 const Education = ({
-  degrees = [],
-  setDegrees = () => {},
   backlogs = {},
-  handleValueChange = () => {},
   handleEarlierBacklogsCheckBox = () => {},
   handlePresentBacklogsCheckBox = () => {},
-  errors = {},
-  setErrors = () => {},
-  validateFields = () => {},
+  setActivePage = () => {},
+  setStuRegData = () => {},
+  activePage = 1,
+  stuRegData = {},
 }) => {
+  const {
+    control,
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+    defaultValues: {
+      degrees: stuRegData.degrees || [
+        {
+          degreeSpecialization: "",
+          degreeBranch: "",
+          gradingSystem: "",
+          degreePercentage: "",
+        },
+      ],
+    },
+  });
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "degrees",
+  });
+
   const handleAddDegree = () => {
-    if (!validateFields()) {
-      return;
-    }
-    setDegrees([
-      {
-        id: Date.now(),
-        degreeSpecialization: "",
-        branch: "",
-        gradingSystem: "",
-        degreePercentage: "",
-      },
-      ...degrees,
-    ]);
+    append({
+      degreeSpecialization: "",
+      degreeBranch: "",
+      gradingSystem: "",
+      degreePercentage: "",
+    });
   };
 
-  const handleRemoveDegree = (id) => {
-    if (degrees.length > 1) {
-      setDegrees((prevDegree) =>
-        prevDegree.filter((degree) => degree.id !== id)
-      );
-      setErrors({
-        degreeSpecialization: "",
-        branch: "",
-        gradingSystem: "",
-        degreePercentage: "",
-      });
-    }
+  const onSubmit = (data) => {
+    console.log("Form Data:", data);
+    setStuRegData({
+      ...stuRegData,
+      ...data,
+    });
+    setActivePage(4);
   };
+
+  const onInvalid = (errors) => console.error(errors);
 
   return (
     <>
@@ -89,24 +105,18 @@ const Education = ({
         />
       </Grid>
 
-      <Grid
-        container
-        className="scroll-bar-container d-flex justify-content-center align-items-baseline"
-        spacing={2}
+      <form
+        onSubmit={handleSubmit(onSubmit, onInvalid)}
+        className="scroll-bar-container"
       >
-        {degrees.map(
-          (
-            {
-              id,
-              degreeSpecialization,
-              branch,
-              gradingSystem,
-              degreePercentage,
-            },
-            index
-          ) => (
-            <>
-              {degrees.length > 1 && (
+        <Grid
+          container
+          className="d-flex justify-content-center align-items-baseline"
+          spacing={2}
+        >
+          {fields.map((field, index) => (
+            <React.Fragment key={field.id}>
+              {fields.length > 1 && (
                 <Grid
                   item
                   className="degrees-container d-flex justify-content-end w-100p"
@@ -116,23 +126,20 @@ const Education = ({
                     label={_RemoveDegreeBtnLabel_}
                     showIcon={true}
                     icon={<DeleteIcon className="icon-red" />}
-                    onBtnClick={() => {
-                      handleRemoveDegree(id);
-                    }}
+                    onBtnClick={() => remove(index)}
                   />
                 </Grid>
               )}
-              <Grid item key={index} md={6} xs={12}>
+
+              <Grid item md={6} xs={12}>
                 <InputBoxComponent
+                  {...register(`degrees.${index}.degreeSpecialization`)}
                   className="education-form-input-box"
                   textLabel={_DegreeSpecializationTextLabel_}
                   required={true}
-                  type="text"
-                  name="degreeSpecialization"
-                  value={degreeSpecialization}
-                  onChange={(event) => handleValueChange(index, event)}
-                  errors={!!errors[index]?.degreeSpecialization}
-                  errorText={errors[index]?.degreeSpecialization}
+                  errorText={
+                    errors?.degrees?.[index]?.degreeSpecialization?.message
+                  }
                   select
                 >
                   {SPECIALIZATION_OPTION.map((option) => (
@@ -149,15 +156,11 @@ const Education = ({
 
               <Grid item md={6} xs={12}>
                 <InputBoxComponent
+                  {...register(`degrees.${index}.degreeBranch`)}
                   className="education-form-input-box"
                   textLabel={_BranchTextLabel_}
                   required={true}
-                  type="text"
-                  value={branch}
-                  name="branch"
-                  onChange={(event) => handleValueChange(index, event)}
-                  errors={!!errors[index]?.branch}
-                  errorText={errors[index]?.branch}
+                  errorText={errors?.degrees?.[index]?.degreeBranch?.message}
                   select
                 >
                   {BRANCHES.map((option) => (
@@ -172,17 +175,13 @@ const Education = ({
                 </InputBoxComponent>
               </Grid>
 
-              <Grid item md={6} xs={12} mt={0}>
+              <Grid item md={6} xs={12}>
                 <InputBoxComponent
+                  {...register(`degrees.${index}.gradingSystem`)}
                   className="education-form-input-box"
                   textLabel={_GradingSystemTextLabel_}
                   required={true}
-                  type="text"
-                  value={gradingSystem}
-                  name="gradingSystem"
-                  onChange={(event) => handleValueChange(index, event)}
-                  errors={!!errors[index]?.gradingSystem}
-                  errorText={errors[index]?.gradingSystem}
+                  errorText={errors?.degrees?.[index]?.gradingSystem?.message}
                   select
                 >
                   {PERCENTAGE.map((percent) => (
@@ -192,41 +191,57 @@ const Education = ({
                   ))}
                 </InputBoxComponent>
               </Grid>
+
               <Grid item md={6} xs={12}>
                 <InputBoxComponent
+                  {...register(`degrees.${index}.degreePercentage`)}
                   className="education-form-input-box"
                   textLabel={_DegreePercentageTextlabel_}
                   required={true}
-                  type="text"
-                  value={degreePercentage}
-                  name="degreePercentage"
-                  onChange={(event) => handleValueChange(index, event)}
-                  errors={!!errors[index]?.degreePercentage}
-                  errorText={errors[index]?.degreePercentage}
+                  errorText={
+                    errors?.degrees?.[index]?.degreePercentage?.message ||
+                    errors?.degrees?.[index]?.cgpa?.message
+                  }
                 />
               </Grid>
-            </>
-          )
-        )}
-      </Grid>
+            </React.Fragment>
+          ))}
+        </Grid>
 
-      <Grid
-        item
-        className="w-90p d-flex justify-content-start ps-4 flex-column"
-      >
-        <CheckBoxComponent
-          name="earlierBacklogs"
-          label={_EarliarBacklogsLabel_}
-          checked={backlogs.earlierBacklogs}
-          onChange={handleEarlierBacklogsCheckBox}
-        />
-        <CheckBoxComponent
-          name="presentBacklogs"
-          label={_PrsentBacklogsLabel_}
-          checked={backlogs.presentBacklogs}
-          onChange={handlePresentBacklogsCheckBox}
-        />
-      </Grid>
+        <Grid
+          item
+          className="w-90p d-flex justify-content-start ps-2 flex-column"
+        >
+          <CheckBoxComponent
+            name="earlierBacklogs"
+            label={_EarliarBacklogsLabel_}
+            checked={backlogs.earlierBacklogs}
+            onChange={handleEarlierBacklogsCheckBox}
+          />
+          <CheckBoxComponent
+            name="presentBacklogs"
+            label={_PrsentBacklogsLabel_}
+            checked={backlogs.presentBacklogs}
+            onChange={handlePresentBacklogsCheckBox}
+          />
+        </Grid>
+
+        <Grid className="back-continue-btn-container mt-5">
+          <ButtonComponent
+            muiProps="back-button border-0"
+            label={"back"}
+            showIcon
+            icon={<ArrowBackIosIcon />}
+            onBtnClick={() => setActivePage(activePage - 1)}
+          />
+          <ButtonComponent
+            muiProps="continue-button"
+            type="submit"
+            label={"submit"}
+            borderRadius="30px"
+          />
+        </Grid>
+      </form>
     </>
   );
 };

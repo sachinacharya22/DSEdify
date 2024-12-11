@@ -1,8 +1,8 @@
 @import "./variable.scss";
 
 .verification-form {
-  width: 90%;
-  max-width: 600px;
+  width: 90% !important;
+  max-width: 600px !important;
 
   .verification-form-input-box {
     background-color: $white_1;
@@ -12,28 +12,16 @@
     }
   }
 
-  .verification-form-phone-verified-btn{
-    height: 40px;
+  .verification-form-phone-verified-btn {
+    height: 40px !important;
 
     &.Mui-disabled {
       background-color: $green_1;
       color: $white_1;
     }
   }
-}
-
-.verification-form-email-container {
-  width: 90%;
-  max-width: 600px;
-  margin-bottom: 10px;
-
-  .verification-form-input-box {
-    background-color: $white_1;
-    border-radius: 5px;
-  }
-
   .verification-form-email-verified-btn {
-    height: 40px;
+    height: 40px !important;
 
     &.Mui-disabled {
       background-color: $green_1;
@@ -44,8 +32,8 @@
 
 .verification-form-get-started-btn {
   background: $primary_color !important;
-  width: 200px;
-  height: 50px;
+  width: 200px !important;
+  height: 50px !important;
 
   &:hover {
     background: $primary_color;
@@ -56,4 +44,3 @@
     color: $white_1;
   }
 }
-

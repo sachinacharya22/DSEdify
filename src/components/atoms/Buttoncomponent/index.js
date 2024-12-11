@@ -24,6 +24,7 @@ const ButtonComponent = ({
   icon = <Delete />,
   showIcon = false,
   sx = {},
+  type = "button", 
   ...props
 }) => {
   const IconProp = showIcon
@@ -62,6 +63,7 @@ const ButtonComponent = ({
       disabled={disabled}
       disableFocusRipple
       disableElevation
+      type={type} 
       {...props}
     >
       {label}

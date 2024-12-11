@@ -15,17 +15,21 @@
   .education-form-add-degree-icon {
     width: 25px;
     height: auto;
-    color: $primary_color ;
+    color: $primary_color;
     background: none;
   }
 }
 
 .scroll-bar-container {
   max-width: 90%;
+  width: 100%;
   margin: 0 auto;
   overflow-y: auto;
   padding: 8px;
-
+  &__form {
+ 
+    display: contents;
+  }
   .degrees-container {
     border-bottom: 2px dashed $primary_color;
 
@@ -44,5 +48,45 @@
     width: 100%;
     background-color: $white_1;
     border-radius: 5px;
+  }
+}
+
+//extra mod
+
+.back-continue-btn-container {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+
+  .back-button {
+    background: none;
+    color: $primary_color;
+    font-size: 15px;
+
+    &:hover {
+      background-color: inherit;
+      color: $primary_color;
+    }
+  }
+
+  .continue-button {
+    background: $primary_color;
+
+    &:hover {
+      background: $primary_color;
+      color: $white_1;
+    }
+
+    @media (min-width: 320px) {
+      font-size: 15px;
+      height: 40px;
+    }
+
+    @media (min-width: 768px) {
+      font-size: 18px;
+    }
   }
 }

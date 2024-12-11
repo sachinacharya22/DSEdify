@@ -1,15 +1,20 @@
 "use client";
-import { Grid, Typography } from "@mui/material";
+
 import React from "react";
+import { Grid, Typography, Box } from "@mui/material";
 import { useDropzone } from "react-dropzone";
-import dragDropBg from "@/assets/icons/drag-drop-bg.png";
-import dragLogo from "@/assets/icons/drag-drop-icon.png";
+import { yupResolver } from "@hookform/resolvers/yup";
+import Image from "next/image";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
-import { Box } from "@mui/system";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import InputBoxComponent from "@/components/atoms/InputBoxComponent";
 import CheckBoxComponent from "@/components/atoms/CheckBoxComponent";
-import Image from "next/image";
+import dragDropBg from "@/assets/icons/drag-drop-bg.png";
+import dragLogo from "@/assets/icons/drag-drop-icon.png";
 import en from "../../../../messages/en.json";
+import { studentInfoValidateSchema } from "@/services/validationSchema";
+import ButtonComponent from "@/components/atoms/Buttoncomponent";
+import { useForm } from "react-hook-form";
 
 const {
   _StudentInfoForm_: {
@@ -24,44 +29,108 @@ const {
 } = en;
 
 const StudentInfo = ({
-  errors = {},
   stuRegData = {},
-  handleChange = () => {},
-  handleCheckBoxChange = () => {},
   isChecked = false,
   setDroppedImage = () => {},
   droppedImage = null,
+  activePage = 1,
+  setActivePage = () => {},
+  setStuRegData = () => {},
+  setIsChecked = () => {},
 }) => {
+  const { phNo } = stuRegData;
+
   const {
-    phNo,
-    fullName,
-    whatsappNo,
-    usn,
-    permanentCity,
-    tenthPercentage,
-    pucDiploma,
-  } = stuRegData;
-  const {
-    fullName: errFullName,
-    whatsappNo: errwhatsappNo,
-    usn: errUsn,
-    permanentCity: errPermanentCity,
-    tenthPercentage: errTenthPercentage,
-    pucDiploma: errPucDiploma,
-  } = errors;
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(studentInfoValidateSchema),
+    defaultValues: stuRegData,
+  });
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: (acceptedFiles) => {
-      setDroppedImage(URL.createObjectURL(acceptedFiles[0]));
+      const file = acceptedFiles[0];
+      if (file) {
+        setValue("imageUpload", file, { shouldValidate: true });
+        setDroppedImage(URL.createObjectURL(file));
+      }
     },
     accept: {
       "image/*": [],
     },
   });
 
-  const deleteDroppedImage = () => {
-    setDroppedImage(null);
+  const onSubmit = (data) => {
+    setStuRegData(data);
+    setActivePage(activePage + 1);
   };
+
+  const handleCheckboxChange = (event) => {
+    const checked = event.target.checked;
+    setIsChecked(checked);
+    if (checked) {
+      setValue("whatsappNo", phNo);
+    } else {
+      setValue("whatsappNo", "");
+    }
+  };
+
+  const {
+    fullName,
+    whatsappNo,
+    usn,
+    permanentCity,
+    tenthPercentage,
+    pucDiploma,
+  } = studentInfoValidateSchema;
+
+  const fields = [
+    {
+      name: "fullName",
+      label: _FullNameTextLabel_,
+      validation: fullName,
+      required: true,
+      isCheckbox: false,
+    },
+    {
+      name: "whatsappNo",
+      label: _WhatsappNoTextLabel_,
+      validation: whatsappNo,
+      required: true,
+      isCheckbox: true,
+    },
+    {
+      name: "usn",
+      label: _UsnTextLabel_,
+      validation: usn,
+      required: true,
+      isCheckbox: false,
+    },
+    {
+      name: "permanentCity",
+      label: _PermanentCityTextLabel_,
+      validation: permanentCity,
+      required: true,
+      isCheckbox: false,
+    },
+    {
+      name: "tenthPercentage",
+      label: _TenthPercentageTextLabel_,
+      validation: tenthPercentage,
+      required: true,
+      isCheckbox: false,
+    },
+    {
+      name: "pucDiploma",
+      label: _PucDiplomaPercentage_,
+      validation: pucDiploma,
+      required: true,
+      isCheckbox: false,
+    },
+  ];
 
   return (
     <>
@@ -70,12 +139,20 @@ const StudentInfo = ({
         className="student-info-form-drag-drop-bg"
         {...(droppedImage ? {} : getRootProps())}
         sx={{
-          backgroundImage: `url(${droppedImage ? null : dragDropBg.src})`,
+          backgroundImage: `url(${droppedImage ? "" : dragDropBg.src})`,
         }}
       >
-        <input {...getInputProps()} />
-
-        {droppedImage && (
+        <input
+          {...getInputProps()}
+          onChange={(e) => {
+            const file = e.target.files[0];
+            if (file) {
+              setValue("imageUpload", file, { shouldValidate: true });
+              setDroppedImage(URL.createObjectURL(file));
+            }
+          }}
+        />
+        {droppedImage ? (
           <Grid item className="student-info-form-dropped-image-container">
             <Box
               className="student-info-form-dropped-image"
@@ -85,133 +162,70 @@ const StudentInfo = ({
             />
             <RemoveCircleIcon
               className="student-info-form-delete-icon"
-              onClick={deleteDroppedImage}
+              onClick={() => {
+                setDroppedImage(null);
+                setValue("imageUpload", null, { shouldValidate: true });
+              }}
             />
           </Grid>
-        )}
-
-        <Grid item className="student-info-form-drag-drop-icon-container">
-          {droppedImage ? null : (
+        ) : (
+          <Grid item className="student-info-form-drag-drop-icon-container">
             <Image
               className="student-info-form-drag-drop-icon"
               src={dragLogo}
               alt="drag logo"
             />
-          )}
-        </Grid>
+          </Grid>
+        )}
       </Grid>
-
-      {errors.image && (
+      {errors.imageUpload && (
         <Typography className="fw-600 mt-1" color="error" variant="body2">
-          {errors.image}
+          {errors.imageUpload.message}
         </Typography>
       )}
 
-      <Grid
-        container
+      <form
         className="student-info-form-container"
-        spacing={2}
-        alignItems="baseline"
+        onSubmit={handleSubmit(onSubmit)}
       >
-        <Grid item md={6} xs={12}>
-          <InputBoxComponent
-            textLabel={_FullNameTextLabel_}
-            required={true}
-            type="text"
-            className="student-info-form-input"
-            name="fullName"
-            value={fullName}
-            onChange={(event) => {
-              handleChange(event);
-            }}
-            error={!!errFullName}
-            errorText={errFullName}
+        <Grid container spacing={2} alignItems="baseline">
+          {fields.map((field, index) => (
+            <Grid item md={6} xs={12} key={index}>
+              <InputBoxComponent
+                className="student-info-form-input"
+                {...register(field.name)}
+                textLabel={field.label}
+                required={field.required}
+                error={!!errors[field.name]}
+                errorText={errors[field.name]?.message}
+                disabled={field.name === "whatsappNo" && isChecked}
+              />
+              {field.isCheckbox && (
+                <CheckBoxComponent
+                  label={_CheckBoxLabel_}
+                  checked={isChecked}
+                  onChange={handleCheckboxChange}
+                />
+              )}
+            </Grid>
+          ))}
+        </Grid>
+        <Grid className="student-info-form-container__btn-container mt-5">
+          <ButtonComponent
+            muiProps="page-container-back-button border-0"
+            label="Back"
+            showIcon
+            icon={<ArrowBackIosIcon />}
+            onBtnClick={() => setActivePage(activePage - 1)}
+          />
+          <ButtonComponent
+            muiProps="page-container-continue-button"
+            type="submit"
+            label="Continue"
+            borderRadius="30px"
           />
         </Grid>
-        <Grid item md={6} xs={12}>
-          <InputBoxComponent
-            className="student-info-form-input"
-            textLabel={_WhatsappNoTextLabel_}
-            required={true}
-            type="tel"
-            name="whatsappNo"
-            value={whatsappNo}
-            onChange={(event) => {
-              handleChange(event);
-            }}
-            error={!!errwhatsappNo}
-            errorText={errwhatsappNo}
-            disabled={isChecked}
-          />
-          <CheckBoxComponent
-            label={_CheckBoxLabel_}
-            checked={isChecked || phNo === whatsappNo}
-            onChange={handleCheckBoxChange}
-          />
-        </Grid>
-
-        <Grid item md={6} xs={12}>
-          <InputBoxComponent
-            className="student-info-form-input"
-            textLabel={_UsnTextLabel_}
-            required={true}
-            type="text"
-            name="usn"
-            value={usn}
-            onChange={(event) => {
-              handleChange(event);
-            }}
-            error={!!errUsn}
-            errorText={errUsn}
-          />
-        </Grid>
-        <Grid item md={6} xs={12}>
-          <InputBoxComponent
-            className="student-info-form-input"
-            textLabel={_PermanentCityTextLabel_}
-            required={true}
-            type="text"
-            name="permanentCity"
-            value={permanentCity}
-            onChange={(event) => {
-              handleChange(event);
-            }}
-            error={!!errPermanentCity}
-            errorText={errPermanentCity}
-          />
-        </Grid>
-
-        <Grid item md={6} xs={12}>
-          <InputBoxComponent
-            className="student-info-form-input"
-            textLabel={_TenthPercentageTextLabel_}
-            required={true}
-            type="text"
-            name="tenthPercentage"
-            value={tenthPercentage}
-            onChange={(event) => {
-              handleChange(event);
-            }}
-            error={!!errTenthPercentage}
-            errorText={errTenthPercentage}
-          />
-        </Grid>
-        <Grid item md={6} xs={12}>
-          <InputBoxComponent
-            className="student-info-form-input"
-            textLabel={_PucDiplomaPercentage_}
-            required={true}
-            type="text"
-            name="pucDiploma"
-            value={pucDiploma}
-            onChange={(event) => {
-              handleChange(event);
-            }}
-            error={!!errPucDiploma}
-            errorText={errPucDiploma}
-          />
-        </Grid>
-      </Grid>
+      </form>
     </>
   );
 };
